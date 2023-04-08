@@ -1,13 +1,15 @@
 package com.quizapp.quizapp.models;
 
 
+import java.util.List;
+
 import jakarta.persistence.Embeddable;
 
 
 @Embeddable
 public class Question {
     
-    private Answer[] validAnswers;
+    private List<Answer> validAnswers;
     private int scoreValue;
     private String questionText;
     public int getScoreValue() {

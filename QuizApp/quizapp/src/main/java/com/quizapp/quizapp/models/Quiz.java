@@ -14,6 +14,7 @@ import jakarta.persistence.InheritanceType;
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Quiz {
+
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private long id;
@@ -21,20 +22,26 @@ public abstract class Quiz {
     @ElementCollection
     private List<Question> questionList;
 
+    private int totalScore;
+    private String description;
     private int creatorId;
+
     public int getCreatorId() {
         return creatorId;
     }
     public void setCreatorId(int creatorId) {
         this.creatorId = creatorId;
     }
-    private int totalScore;
-    private String description;
+
     public int getTotalScore() {
         return totalScore;
     }
     public void setTotalScore(int totalScore) {
-        this.totalScore = totalScore;
+        int t = 0;
+        for(Question q: questionList){
+            t += q.getScoreValue();
+        }
+        totalScore = t;
     }
     public String getDescription() {
         return description;
