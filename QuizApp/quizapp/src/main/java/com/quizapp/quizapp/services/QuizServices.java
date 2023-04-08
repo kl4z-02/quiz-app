@@ -1,15 +1,16 @@
 package com.quizapp.quizapp.services;
 
-import com.quizapp.quizapp.models.Quiz;
+import com.quizapp.quizapp.models.BasicQuiz;
+
 
 public interface QuizServices {
 	
-	Quiz saveQuiz(Quiz quiz);
+	BasicQuiz saveQuiz(BasicQuiz quiz);
 	
-	Quiz getQuizById(Long id);
+	BasicQuiz getQuizById(Long id);
 	
-	Quiz updateQuiz(Quiz quiz);
+	BasicQuiz updateQuiz(BasicQuiz quiz);
 	
 	void deleteQuizById(Long id);
-    
+
 }

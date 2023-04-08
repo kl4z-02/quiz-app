@@ -2,39 +2,39 @@ package com.quizapp.quizapp.services.impl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.quizapp.quizapp.models.User;
+import com.quizapp.quizapp.repositories.UserRepository;
 import com.quizapp.quizapp.services.UserServices;
 
+@Service
 public class UserServicesImpl implements UserServices{
 
+    private UserRepository userRepository;
     @Override
     public List<User> getAllUsers() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAllUsers'");
+        return userRepository.findAll();
     }
 
     @Override
     public User saveUser(User user) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'saveUser'");
+        return userRepository.save(user);
     }
 
     @Override
     public User getUserById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getUserById'");
+        return userRepository.findById(id).get();
     }
 
     @Override
     public User updateUser(User user) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateUser'");
+        return this.saveUser(user);
     }
 
     @Override
     public void deleteUserById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteUserById'");
+        userRepository.deleteById(id);
     }
     
 }
