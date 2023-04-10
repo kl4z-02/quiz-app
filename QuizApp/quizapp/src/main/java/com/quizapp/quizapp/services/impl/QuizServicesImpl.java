@@ -2,35 +2,34 @@ package com.quizapp.quizapp.services.impl;
 
 import org.springframework.stereotype.Service;
 
-import com.quizapp.quizapp.models.BasicQuiz;
-//import com.quizapp.quizapp.models.Quiz;
-import com.quizapp.quizapp.repositories.BasicQuizRepository;
-//import com.quizapp.quizapp.repositories.QuizBaseRepository;
+import com.quizapp.quizapp.models.Quiz;
+
+import com.quizapp.quizapp.repositories.QuizBaseRepository;
 import com.quizapp.quizapp.services.QuizServices;
 
 @Service
 public class QuizServicesImpl implements QuizServices{
 
-    private BasicQuizRepository basicQuizRepository;
+    private QuizBaseRepository<Quiz> quizRepository;
 
     @Override
-    public BasicQuiz saveQuiz(BasicQuiz quiz) {
-        return basicQuizRepository.save(quiz);
+    public Quiz saveQuiz(Quiz quiz) {
+        return quizRepository.save(quiz);
     }
 
     @Override
-    public BasicQuiz getQuizById(Long id) {
-        return basicQuizRepository.findById(id).get();
+    public Quiz getQuizById(Long id) {
+        return quizRepository.findById(id).get();
     }
 
     @Override
-    public BasicQuiz updateQuiz(BasicQuiz quiz) {
+    public Quiz updateQuiz(Quiz quiz) {
         return this.saveQuiz(quiz);
     }
 
     @Override
     public void deleteQuizById(Long id) {
-        basicQuizRepository.deleteById(id);
+        quizRepository.deleteById(id);
     }
     
 }

@@ -13,27 +13,28 @@ import jakarta.persistence.OneToMany;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Singular;
-import lombok.experimental.SuperBuilder;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-@SuperBuilder
-public abstract class Quiz {
+@Data
+public class Quiz {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     protected long id;
 
     @OneToMany(mappedBy = "quiz")
-    @Singular("question")
     protected List<Question> questions;
 
     protected String description;
     protected int creatorId;
     
-    public Quiz(){
-
+    public Quiz(String description, int creatorId){
+        this.description = description;
+        this.creatorId = creatorId;
+        questions = new ArrayList<Question>();
     }
+
     public long getId(){
         return id;
     }
@@ -54,7 +55,7 @@ public abstract class Quiz {
         this.creatorId = creatorId;
     }
     public void addQuestion(Question q){
-        System.out.println(questions.size());
+        //System.out.println(questions.size());
         questions.add(q);
     }
     public List<Question> getQuestions(){

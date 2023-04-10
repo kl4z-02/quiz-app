@@ -11,24 +11,24 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import com.quizapp.quizapp.models.Answer;
-import com.quizapp.quizapp.models.BasicQuiz;
+import com.quizapp.quizapp.models.Quiz;
 import com.quizapp.quizapp.models.Question;
-import com.quizapp.quizapp.repositories.BasicQuizRepository;
+import com.quizapp.quizapp.repositories.QuizBaseRepository;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 public class QuizRepositoryTest {
     @Autowired
-    private BasicQuizRepository basicQuizRepository; 
+    private QuizBaseRepository<Quiz> quizRepository; 
     
     @Test
     public void addQuizThenCheckIfSaved(){
         Answer a1 = new Answer("abc");
-        BasicQuiz b = BasicQuiz.builder().creatorId(0).description("something").question(
-                Question.builder().answer(a1).questionText("some").scoreValue(10).build()
-            ).
-            build();
-        BasicQuiz saved = basicQuizRepository.save(b);
+        Quiz b = new Quiz("test", 1);
+        b.addQuestion(
+            Question.builder().answer(a1).questionText("some2").scoreValue(20).build()
+            );
+        Quiz saved = quizRepository.save(b);
         Assertions.assertNotNull(saved);
     }
 
@@ -36,13 +36,14 @@ public class QuizRepositoryTest {
     public void addQuizThenValidateTotalScore(){
         Answer a1 = new Answer("abc");
         Answer a2 = new Answer("bcd");
-        BasicQuiz b = BasicQuiz.builder().creatorId(0).description("something").question(
-                Question.builder().answer(a1).questionText("some").scoreValue(10).build()
-            ).question(
-                Question.builder().answer(a2).questionText("some2").scoreValue(20).build()  
-            ).
-            build();
-        BasicQuiz saved = basicQuizRepository.save(b);
+        Quiz b = new Quiz("test", 2);
+        b.addQuestion(
+            Question.builder().answer(a1).questionText("some").scoreValue(10).build()
+            );
+        b.addQuestion(
+            Question.builder().answer(a2).questionText("some2").scoreValue(20).build()
+            );
+        Quiz saved = quizRepository.save(b);
         Assertions.assertNotNull(saved);
         Assertions.assertEquals(saved.getTotalScore(), 30);
     }
@@ -50,10 +51,8 @@ public class QuizRepositoryTest {
     @Test
     public void addQuizThenValidateAnswers(){
 
-        BasicQuiz b = BasicQuiz.builder().
-                        creatorId(0).
-                        description("something").
-                        question(
+        Quiz b = new Quiz("test", 0);
+        b.addQuestion(
                                     Question.builder().answer(
                                         Answer.builder().text("abc").build()
                                     ).answer(
@@ -61,8 +60,8 @@ public class QuizRepositoryTest {
                                 ).
                                 questionText("some").
                                 scoreValue(10).build()
-                                ).
-                        question(
+                                );
+        b.addQuestion(
                                 Question.builder().answer(
                                     Answer.builder().text("one").build()
                                 ).answer(
@@ -70,9 +69,8 @@ public class QuizRepositoryTest {
                                 ).
                                 questionText("some2").
                                 scoreValue(20).build()  
-                            ).
-                        build();
-        BasicQuiz saved = basicQuizRepository.save(b);
+                            );
+        Quiz saved = quizRepository.save(b);
         Assertions.assertNotNull(saved);
         Assertions.assertEquals(saved.getTotalScore(), 30);
         Assertions.assertTrue(saved.validateAnswerAt(0, new Answer("abc")));
@@ -86,10 +84,7 @@ public class QuizRepositoryTest {
 
     @Test
     public void createQuizValidateQuestionQuizId(){
-        BasicQuiz b = BasicQuiz.builder().
-                        creatorId(0).
-                        description("something").
-                        build();
+        Quiz b = new Quiz("test", 4);
         Question q = Question.builder().answer(
                         Answer.builder().text("abc").build()
                     ).answer(
@@ -99,9 +94,8 @@ public class QuizRepositoryTest {
                     scoreValue(10).
                     quiz(b).
                     build();
-        basicQuizRepository.save(b);
         b.addQuestion(q);
-
-        Assertions.assertEquals(b.getId(), b.getQuestionAt(0).getQuizId());
+        Quiz saved = quizRepository.save(b);
+        Assertions.assertEquals(saved.getId(), saved.getQuestionAt(0).getQuizId());
     }
 }
