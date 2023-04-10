@@ -5,3 +5,6 @@ recent changes 10/4/23
 - removed basic quiz
 - made quiz concrete
 - downgraded question(entity -> embeddable)
+
+- added view for single quiz
+- controller for GET quiz
