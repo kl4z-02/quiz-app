@@ -2,20 +2,19 @@ package com.quizapp.quizapp.models;
 
 
 import java.util.List;
-
-import jakarta.annotation.Generated;
 import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.Builder;
+import lombok.Singular;
 
 
 @Entity
+@Builder
 public class Question {
     
     @Id
@@ -26,13 +25,18 @@ public class Question {
     @JoinColumn(name="quiz_id", nullable = false)
     private Quiz quiz;
 
-    @Embedded
-    private List<Answer> validAnswers;
+    @ElementCollection
+    @Singular("answer")
+    public List<Answer> answers;
 
     private int scoreValue;
     private String questionText;
+
     public int getScoreValue() {
         return scoreValue;
+    }
+    public long getQuizId(){
+        return quiz.getId();
     }
     public void setScoreValue(int scoreValue) {
         this.scoreValue = scoreValue;
@@ -43,8 +47,9 @@ public class Question {
     public void setQuestionText(String questionText) {
         this.questionText = questionText;
     }
-    public boolean validate(String inp){
-        for(Answer var: validAnswers){
+    public boolean validate(Answer a){
+        String inp = a.getText();
+        for(Answer var: answers){
             if(var.validate(inp))
                 return true;
         }
