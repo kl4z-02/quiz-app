@@ -3,16 +3,15 @@ package com.quizapp.quizapp.models;
 import java.util.List;
 import java.util.ArrayList;
 
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
-import jakarta.persistence.OneToMany;
-import lombok.Builder;
 import lombok.Data;
-import lombok.Singular;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -23,7 +22,8 @@ public class Quiz {
     @GeneratedValue(strategy = GenerationType.TABLE)
     protected long id;
 
-    @OneToMany(mappedBy = "quiz")
+    @ElementCollection
+    @CollectionTable(name = "quiz_questions")
     protected List<Question> questions;
 
     protected String description;
@@ -38,13 +38,13 @@ public class Quiz {
     public long getId(){
         return id;
     }
-    public boolean validateAnswerAt(int index, Answer a){
+    public boolean validateAnswerAt(int index, String a){
         if(index> questions.size())
             return false;
         return questions.get(index).validate(a);
     }
     public Question getQuestionAt(int index){
-        if(index> questions.size())
+        if(index>questions.size())
             return null;
         return questions.get(index);
     }

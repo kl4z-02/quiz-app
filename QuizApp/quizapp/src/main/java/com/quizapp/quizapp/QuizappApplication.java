@@ -17,16 +17,15 @@ public class QuizappApplication implements CommandLineRunner{
 	public void run(String ... args){
 		Quiz b = new Quiz("test", 4);
         Question q = Question.builder().answer(
-                        Answer.builder().text("abc").build()
+                        "abc"
                     ).answer(
-                        Answer.builder().text("bcd").build()
+                        "bcd"
                     ).
                     questionText("some").
                     scoreValue(10).
-                    quiz(b).
                     build();
         b.addQuestion(q);
-        Quiz saved = quizRepository.save(b);
-		System.out.println(saved.getQuestionAt(0).getQuestionText());
+        quizRepository.save(b);
+		//System.out.println(saved.getQuestionAt(0).getQuestionText());
 	}	
 }

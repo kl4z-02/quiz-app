@@ -1,7 +1,5 @@
 package com.quizapp.quizapp;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -10,7 +8,6 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import com.quizapp.quizapp.models.Answer;
 import com.quizapp.quizapp.models.Quiz;
 import com.quizapp.quizapp.models.Question;
 import com.quizapp.quizapp.repositories.QuizBaseRepository;
@@ -23,10 +20,9 @@ public class QuizRepositoryTest {
     
     @Test
     public void addQuizThenCheckIfSaved(){
-        Answer a1 = new Answer("abc");
         Quiz b = new Quiz("test", 1);
         b.addQuestion(
-            Question.builder().answer(a1).questionText("some2").scoreValue(20).build()
+            Question.builder().answer("abc").questionText("some2").scoreValue(20).build()
             );
         Quiz saved = quizRepository.save(b);
         Assertions.assertNotNull(saved);
@@ -34,14 +30,13 @@ public class QuizRepositoryTest {
 
     @Test
     public void addQuizThenValidateTotalScore(){
-        Answer a1 = new Answer("abc");
-        Answer a2 = new Answer("bcd");
+
         Quiz b = new Quiz("test", 2);
         b.addQuestion(
-            Question.builder().answer(a1).questionText("some").scoreValue(10).build()
+            Question.builder().answer("abc").questionText("some").scoreValue(10).build()
             );
         b.addQuestion(
-            Question.builder().answer(a2).questionText("some2").scoreValue(20).build()
+            Question.builder().answer("abc").questionText("some2").scoreValue(20).build()
             );
         Quiz saved = quizRepository.save(b);
         Assertions.assertNotNull(saved);
@@ -54,18 +49,18 @@ public class QuizRepositoryTest {
         Quiz b = new Quiz("test", 0);
         b.addQuestion(
                                     Question.builder().answer(
-                                        Answer.builder().text("abc").build()
+                                        "abc"
                                     ).answer(
-                                        Answer.builder().text("bcd").build()
+                                        "bcd"
                                 ).
                                 questionText("some").
                                 scoreValue(10).build()
                                 );
         b.addQuestion(
                                 Question.builder().answer(
-                                    Answer.builder().text("one").build()
+                                    "one"
                                 ).answer(
-                                    Answer.builder().text("two").build()
+                                    "two"
                                 ).
                                 questionText("some2").
                                 scoreValue(20).build()  
@@ -73,29 +68,28 @@ public class QuizRepositoryTest {
         Quiz saved = quizRepository.save(b);
         Assertions.assertNotNull(saved);
         Assertions.assertEquals(saved.getTotalScore(), 30);
-        Assertions.assertTrue(saved.validateAnswerAt(0, new Answer("abc")));
-        Assertions.assertTrue(saved.validateAnswerAt(0, new Answer("bcd")));
-        Assertions.assertFalse(saved.validateAnswerAt(0, new Answer("incorrect")));
+        Assertions.assertTrue(saved.validateAnswerAt(0, ("abc")));
+        Assertions.assertTrue(saved.validateAnswerAt(0, ("bcd")));
+        Assertions.assertFalse(saved.validateAnswerAt(0, ("incorrect")));
         //second
-        Assertions.assertTrue(saved.validateAnswerAt(1, new Answer("one")));
-        Assertions.assertTrue(saved.validateAnswerAt(1, new Answer("two")));
-        Assertions.assertFalse(saved.validateAnswerAt(1, new Answer("three")));
+        Assertions.assertTrue(saved.validateAnswerAt(1, ("one")));
+        Assertions.assertTrue(saved.validateAnswerAt(1, ("two")));
+        Assertions.assertFalse(saved.validateAnswerAt(1, ("three")));
     }
 
     @Test
-    public void createQuizValidateQuestionQuizId(){
+    public void currentlyUseless(){
         Quiz b = new Quiz("test", 4);
         Question q = Question.builder().answer(
-                        Answer.builder().text("abc").build()
+                        "abc"
                     ).answer(
-                        Answer.builder().text("bcd").build()
+                        "bcd"
                     ).
                     questionText("some").
                     scoreValue(10).
-                    quiz(b).
                     build();
         b.addQuestion(q);
         Quiz saved = quizRepository.save(b);
-        Assertions.assertEquals(saved.getId(), saved.getQuestionAt(0).getQuizId());
+        Assertions.assertNotNull(saved);
     }
 }
