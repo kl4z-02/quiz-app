@@ -28,7 +28,9 @@ public class Quiz {
 
     protected String description;
     protected int creatorId;
-    
+    public Quiz(){
+        
+    }
     public Quiz(String description, int creatorId){
         this.description = description;
         this.creatorId = creatorId;

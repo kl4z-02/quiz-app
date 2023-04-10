@@ -15,16 +15,25 @@ public class QuizappApplication implements CommandLineRunner{
 		SpringApplication.run(QuizappApplication.class, args);
 	}
 	public void run(String ... args){
-		Quiz b = new Quiz("test", 4);
-        Question q = Question.builder().answer(
+		Quiz b = new Quiz("test", 0);
+        Question q1 = Question.builder().answer(
                         "abc"
                     ).answer(
                         "bcd"
                     ).
-                    questionText("some").
+                    questionText("question 1").
                     scoreValue(10).
                     build();
-        b.addQuestion(q);
+        Question q2 = Question.builder().answer(
+                        "one"
+                    ).answer(
+                        "two"
+                    ).
+                    questionText("question 2").
+                    scoreValue(100).
+                    build();
+        b.addQuestion(q1);
+        b.addQuestion(q2);
         quizRepository.save(b);
 		//System.out.println(saved.getQuestionAt(0).getQuestionText());
 	}	

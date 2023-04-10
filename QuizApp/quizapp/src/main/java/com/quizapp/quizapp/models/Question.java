@@ -34,6 +34,9 @@ public class Question {
     public void setQuestionText(String questionText) {
         this.questionText = questionText;
     }
+    public String getFirstAnswer(){
+        return answers.get(0);
+    }
     public boolean validate(String inp){
         for(String var: answers){
             if(var.equalsIgnoreCase(inp))
