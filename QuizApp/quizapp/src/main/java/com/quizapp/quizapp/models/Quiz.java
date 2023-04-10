@@ -10,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.OneToMany;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -19,7 +20,7 @@ public abstract class Quiz {
     @GeneratedValue(strategy = GenerationType.TABLE)
     private long id;
 
-    @ElementCollection
+    @OneToMany(mappedBy = "quiz")
     private List<Question> questionList;
 
     private int totalScore;
