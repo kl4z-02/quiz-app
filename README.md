@@ -8,3 +8,9 @@ recent changes 10/4/23
 
 - added view for single quiz
 - controller for GET quiz
+
+11/4
+
+- view for all quizzes and all users
+- fixed services
+- controllers use services now
