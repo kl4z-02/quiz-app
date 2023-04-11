@@ -10,18 +10,25 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import com.quizapp.quizapp.models.Quiz;
 import com.quizapp.quizapp.models.Question;
-import com.quizapp.quizapp.repositories.QuizBaseRepository;
+import com.quizapp.quizapp.repositories.QuizRepository;
+import com.quizapp.quizapp.services.QuizService;
+import com.quizapp.quizapp.services.impl.QuizServicesImpl;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 public class QuizRepositoryTest {
     @Autowired
-    private QuizBaseRepository<Quiz> quizRepository; 
-    
+    private QuizRepository quizRepository; 
+
+    @Autowired
+    private QuizService quizService;
+
+
     @Test
     public void addQuizThenCheckIfSaved(){
+        //QuizService quizService = new QuizServicesImpl();
         Quiz b = new Quiz("test", 1);
-        b.addQuestion(
+        quizService.addQuestion(b, 
             Question.builder().answer("abc").questionText("some2").scoreValue(20).build()
             );
         Quiz saved = quizRepository.save(b);
@@ -32,10 +39,10 @@ public class QuizRepositoryTest {
     public void addQuizThenValidateTotalScore(){
 
         Quiz b = new Quiz("test", 2);
-        b.addQuestion(
+        quizService.addQuestion(b,
             Question.builder().answer("abc").questionText("some").scoreValue(10).build()
             );
-        b.addQuestion(
+        quizService.addQuestion(b,
             Question.builder().answer("abc").questionText("some2").scoreValue(20).build()
             );
         Quiz saved = quizRepository.save(b);
@@ -47,7 +54,7 @@ public class QuizRepositoryTest {
     public void addQuizThenValidateAnswers(){
 
         Quiz b = new Quiz("test", 0);
-        b.addQuestion(
+        quizService.addQuestion(b,
                                     Question.builder().answer(
                                         "abc"
                                     ).answer(
@@ -56,7 +63,7 @@ public class QuizRepositoryTest {
                                 questionText("some").
                                 scoreValue(10).build()
                                 );
-        b.addQuestion(
+        quizService.addQuestion(b,
                                 Question.builder().answer(
                                     "one"
                                 ).answer(
@@ -68,13 +75,13 @@ public class QuizRepositoryTest {
         Quiz saved = quizRepository.save(b);
         Assertions.assertNotNull(saved);
         Assertions.assertEquals(saved.getTotalScore(), 30);
-        Assertions.assertTrue(saved.validateAnswerAt(0, ("abc")));
-        Assertions.assertTrue(saved.validateAnswerAt(0, ("bcd")));
-        Assertions.assertFalse(saved.validateAnswerAt(0, ("incorrect")));
+        Assertions.assertTrue(quizService.validateAnswerAt(saved, 0, ("abc")));
+        Assertions.assertTrue(quizService.validateAnswerAt(saved, 0, ("bcd")));
+        Assertions.assertFalse(quizService.validateAnswerAt(saved, 0, ("incorrect")));
         //second
-        Assertions.assertTrue(saved.validateAnswerAt(1, ("one")));
-        Assertions.assertTrue(saved.validateAnswerAt(1, ("two")));
-        Assertions.assertFalse(saved.validateAnswerAt(1, ("three")));
+        Assertions.assertTrue(quizService.validateAnswerAt(saved, 1, ("one")));
+        Assertions.assertTrue(quizService.validateAnswerAt(saved, 1, ("two")));
+        Assertions.assertFalse(quizService.validateAnswerAt(saved, 1, ("three")));
     }
 
     @Test
@@ -88,7 +95,7 @@ public class QuizRepositoryTest {
                     questionText("some").
                     scoreValue(10).
                     build();
-        b.addQuestion(q);
+        quizService.addQuestion(b, q);
         Quiz saved = quizRepository.save(b);
         Assertions.assertNotNull(saved);
     }

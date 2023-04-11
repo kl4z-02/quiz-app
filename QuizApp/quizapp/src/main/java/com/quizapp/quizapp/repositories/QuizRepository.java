@@ -1,9 +1,11 @@
 package com.quizapp.quizapp.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import com.quizapp.quizapp.models.Quiz;
 
-public interface QuizBaseRepository<T extends Quiz> extends JpaRepository<T, Long> {
+@Repository
+public interface QuizRepository extends JpaRepository<Quiz, Long> {
     
 }
