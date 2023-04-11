@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>QuizApp</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		
+</head>
+<body>
+	<div class = "container">
+		<div class = "row">
+			<div class ="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+				<h1 class = "text-center"> Registration </h1>
+				<div class = "card-body">
+					<form th:action="@{/users}" th:object = "${user}" method="POST">
+						<div class ="form-group">
+							<label> Username </label>
+							<input
+							type = "text"
+							name = "Username"
+							th:field = "*{username}"
+							class = "form-control"
+							placeholder="Enter your username" 
+							/>
+						</div>
+						
+						<div class ="form-group">
+							<label> Password </label>
+							<input
+							type = "password"
+							name = "password"
+							th:field = "*{password}"
+							class = "form-control"
+							placeholder="Enter your password" 
+							/>
+						</div>
+						
+						<div class = "box-footer">
+							<button type="submit" class = "btn btn-primary">
+								Submit
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
