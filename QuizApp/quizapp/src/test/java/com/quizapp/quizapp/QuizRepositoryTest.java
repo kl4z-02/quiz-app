@@ -12,7 +12,6 @@ import com.quizapp.quizapp.models.Quiz;
 import com.quizapp.quizapp.models.Question;
 import com.quizapp.quizapp.repositories.QuizRepository;
 import com.quizapp.quizapp.services.QuizService;
-import com.quizapp.quizapp.services.impl.QuizServicesImpl;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)

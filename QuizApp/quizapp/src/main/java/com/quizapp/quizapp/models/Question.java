@@ -1,9 +1,9 @@
 package com.quizapp.quizapp.models;
 
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import jakarta.persistence.Embeddable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -42,7 +42,7 @@ public class Question {
     }
     public void setAnswersString(String answersString) {
         this.answersString = answersString;
-        setList();
+        this.setList();
     }
     public int getScoreValue() {
         return scoreValue;
@@ -60,7 +60,7 @@ public class Question {
         return answers.get(0);
     }
     public void setList(){
-        answers = Arrays.asList(answersString.split("\\s*,\\s*"));
+        answers = new ArrayList<String>(Arrays.asList(answersString.split("\\s*,\\s*")));
     }
     public boolean validate(String inp){
         for(String var: answers){

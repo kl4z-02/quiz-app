@@ -1,6 +1,6 @@
 package com.quizapp.quizapp.controllers;
 
-import java.util.List;
+//import java.util.List;
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,7 +39,6 @@ public class QuizController {
     }
     @PostMapping("/removeQuestion")
 	public String removeContact(Quiz quiz, @RequestParam("removeDynamicRow") int index) {
-//    	person.getContactList().remove(contactIndex);
 		quizService.removeQuestion(quiz, index);
 		return "create_quiz :: questions"; // returning the updated section
 	}
