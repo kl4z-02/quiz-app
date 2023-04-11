@@ -1,5 +1,7 @@
 package com.quizapp.quizapp.controllers;
 
+import java.util.List;
+import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.quizapp.quizapp.models.Quiz;
 import com.quizapp.quizapp.services.QuizService;
-
+import com.quizapp.quizapp.models.Question;
 @Controller
 public class QuizController {
     @Autowired
@@ -26,11 +28,12 @@ public class QuizController {
     public String createNewQuiz(Model model){
         Quiz quiz = new Quiz();
         model.addAttribute("quiz", quiz);
+
         return "create_quiz";
     }
     
-    @PostMapping("quizzes/new")
-    public String saveQuiz(@ModelAttribute("quiz") Quiz quiz ){
+    @PostMapping("quizzes")
+    public String saveQuiz(@ModelAttribute("quiz") Quiz quiz, @ModelAttribute("questions") ArrayList<Question> questions ){
         quizService.saveQuiz(quiz);
         return "redirect:/quizzes";
     }

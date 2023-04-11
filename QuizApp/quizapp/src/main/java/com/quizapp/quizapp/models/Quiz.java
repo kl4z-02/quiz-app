@@ -56,9 +56,17 @@ public class Quiz {
     public void setCreatorId(int creatorId) {
         this.creatorId = creatorId;
     }
+    public void addQuestion(){
+        questions.add(Question.builder().build());
+    }
     public void addQuestion(Question q){
         //System.out.println(questions.size());
         questions.add(q);
+    }
+    public void addQuestions(List<Question> questions){
+        //System.out.println(questions.size());
+        for(Question q: questions)
+            this.questions.add(q);
     }
     public List<Question> getQuestions(){
         return questions;
