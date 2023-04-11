@@ -35,6 +35,5 @@ public class QuizappApplication implements CommandLineRunner{
         b.addQuestion(q1);
         b.addQuestion(q2);
         quizRepository.save(b);
-		//System.out.println(saved.getQuestionAt(0).getQuestionText());
 	}	
 }

@@ -6,10 +6,13 @@ import org.springframework.stereotype.Service;
 
 import com.quizapp.quizapp.models.User;
 import com.quizapp.quizapp.repositories.UserRepository;
-import com.quizapp.quizapp.services.UserServices;
+import com.quizapp.quizapp.services.UserService;
+
+import lombok.Builder;
 
 @Service
-public class UserServicesImpl implements UserServices{
+@Builder
+public class UserServicesImpl implements UserService{
 
     private UserRepository userRepository;
     @Override

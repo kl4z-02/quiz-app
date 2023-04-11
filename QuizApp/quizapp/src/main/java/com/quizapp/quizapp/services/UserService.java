@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.quizapp.quizapp.models.User;
 
-public interface UserServices {
+public interface UserService {
     List<User> getAllUsers();
 	
 	User saveUser(User user);

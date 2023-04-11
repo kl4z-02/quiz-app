@@ -6,18 +6,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 //import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.quizapp.quizapp.models.Quiz;
-import com.quizapp.quizapp.repositories.QuizBaseRepository;
+
+import com.quizapp.quizapp.services.QuizService;
 
 @Controller
 public class QuizController {
     @Autowired
-    QuizBaseRepository<Quiz> qRepository;
+    QuizService quizService; 
 
-    @GetMapping("/quiz")
+    @GetMapping("/quizzes")
     public String quizList(Model model){
-        model.addAttribute("quiz", qRepository.findById(1L).get());
-        return "quiz";
+        model.addAttribute("quizzes", quizService.getAllQuizzes());
+        return "quizzes";
     }
     
 }

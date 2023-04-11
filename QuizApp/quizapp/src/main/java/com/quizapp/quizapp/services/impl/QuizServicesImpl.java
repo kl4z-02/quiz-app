@@ -1,14 +1,19 @@
 package com.quizapp.quizapp.services.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.quizapp.quizapp.models.Quiz;
 
 import com.quizapp.quizapp.repositories.QuizBaseRepository;
-import com.quizapp.quizapp.services.QuizServices;
+import com.quizapp.quizapp.services.QuizService;
+
+import lombok.Builder;
 
 @Service
-public class QuizServicesImpl implements QuizServices{
+@Builder
+public class QuizServicesImpl implements QuizService{
 
     private QuizBaseRepository<Quiz> quizRepository;
 
@@ -31,5 +36,9 @@ public class QuizServicesImpl implements QuizServices{
     public void deleteQuizById(Long id) {
         quizRepository.deleteById(id);
     }
-    
+ 
+    @Override
+    public List<Quiz> getAllQuizzes(){
+        return quizRepository.findAll();
+    }
 }

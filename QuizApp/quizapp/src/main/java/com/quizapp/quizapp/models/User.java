@@ -3,18 +3,27 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
 @Entity
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
+
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long UID;
     private String username;
     private String password;
+
+    public String getPassword() {
+        return password; //TO BE REMOVED LATER
+    }
 
     public long getUID() {
         return UID;

@@ -1,9 +1,11 @@
 package com.quizapp.quizapp.services;
 
+import java.util.List;
+
 import com.quizapp.quizapp.models.Quiz;
 
 
-public interface QuizServices {
+public interface QuizService {
 	
 	Quiz saveQuiz(Quiz quiz);
 	
@@ -13,4 +15,5 @@ public interface QuizServices {
 	
 	void deleteQuizById(Long id);
 
+	List<Quiz> getAllQuizzes();
 }
