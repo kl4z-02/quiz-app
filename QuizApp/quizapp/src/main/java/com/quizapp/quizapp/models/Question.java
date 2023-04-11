@@ -3,7 +3,7 @@ package com.quizapp.quizapp.models;
 
 import java.util.List;
 import jakarta.persistence.Embeddable;
-
+import jakarta.persistence.EmbeddedId;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -18,6 +18,16 @@ public class Question {
     
     @Singular("answer")
     public List<String> answers;
+    
+    @EmbeddedId()
+    public int qId;
+    
+    public String answerString;
+    
+    public void setAnswers()
+    {
+    	
+    }
 
     private int scoreValue;
     private String questionText;

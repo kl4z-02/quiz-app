@@ -57,7 +57,7 @@ public class Quiz {
         this.creatorId = creatorId;
     }
     public void addQuestion(){
-        questions.add(Question.builder().build());
+        questions.add(new Question());
     }
     public void addQuestion(Question q){
         //System.out.println(questions.size());
