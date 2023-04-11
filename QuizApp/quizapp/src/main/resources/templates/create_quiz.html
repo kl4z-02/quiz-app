@@ -71,7 +71,26 @@
 									<div
 										th:if="${#fields.hasErrors('${quiz.questions[__${rowStat.index}__].questionText}')}"
 										class="invalid-feedback"
-										th:errors="${quiz.questions[__${rowStat.index}__].questionText}"></div>
+										th:errors="${quiz.questions[__${rowStat.index}__].questionText}">
+                                    </div>
+								</td>
+                                <td><input class="form-control form-control-sm"
+									th:field="${quiz.questions[__${rowStat.index}__].answersString}"
+									th:errorclass="is-invalid" />
+									<div
+										th:if="${#fields.hasErrors('${quiz.questions[__${rowStat.index}__].answersString}')}"
+										class="invalid-feedback"
+										th:errors="${quiz.questions[__${rowStat.index}__].answersString}">
+                                    </div>
+								</td>
+                                <td><input class="form-control form-control-sm"
+									th:field="${quiz.questions[__${rowStat.index}__].scoreValue}"
+									th:errorclass="is-invalid" />
+									<div
+										th:if="${#fields.hasErrors('${quiz.questions[__${rowStat.index}__].scoreValue}')}"
+										class="invalid-feedback"
+										th:errors="${quiz.questions[__${rowStat.index}__].scoreValue}">
+                                    </div>
 								</td>
 								<td>
 									<div class="btn-group">

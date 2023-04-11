@@ -1,6 +1,7 @@
 package com.quizapp.quizapp.models;
 
 
+import java.util.Arrays;
 import java.util.List;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Entity;
@@ -21,7 +22,10 @@ public class Question {
     
     @Singular("answer")
     public List<String> answers;
-
+    public String answersString;
+    private int scoreValue;
+    private String questionText;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -32,9 +36,14 @@ public class Question {
     public void setId(long id) {
         this.id = id;
     }
-    private int scoreValue;
-    private String questionText;
 
+    public String getAnswersString() {
+        return answersString;
+    }
+    public void setAnswersString(String answersString) {
+        this.answersString = answersString;
+        setList();
+    }
     public int getScoreValue() {
         return scoreValue;
     }
@@ -49,6 +58,9 @@ public class Question {
     }
     public String getFirstAnswer(){
         return answers.get(0);
+    }
+    public void setList(){
+        answers = Arrays.asList(answersString.split("\\s*,\\s*"));
     }
     public boolean validate(String inp){
         for(String var: answers){
