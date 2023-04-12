@@ -49,6 +49,10 @@ public class Quiz {
         this.creatorId = creatorId;
     }
    
+    public Question getQuestionAt(int index){
+        return questions.get(index);
+    }
+    
     public List<Question> getQuestions(){
         return questions;
     }

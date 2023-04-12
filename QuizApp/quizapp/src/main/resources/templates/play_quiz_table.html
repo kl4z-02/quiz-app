@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>QuizApp</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+	<div>
+        <form th:action="@{/quizzes/display}" th:object = "${qa_map}" method="POST">
+            <table class="table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Question</th>
+                        <th scope="col">Answer</th>
+                        <th scope="col">Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each = "qa, rowStat: ${qa_map}">
+                        <td th:text = "${__${rowStat.index}__}"></td>
+                        <td th:text = "${qa.question.getQuestionText()}"></td>
+                        <input type="hidden" th:name="|qa_map[__${rowStat.index}__].question|" th:value="${qa_map[__${rowStat.index}__].question}" >
+                    
+                        <td><input type="text" th:name="|qa_map[__${rowStat.index}__].userInput|" th:value="${qa_map[__${rowStat.index}__].userInput}" class="form-control"/></td>
+                        
+                        <td th:text = "${qa.question.getScoreValue()}"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class = "box-footer">
+                <button type="submit" class = "btn btn-primary">
+                    Submit
+                </button>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

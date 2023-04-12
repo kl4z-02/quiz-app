@@ -3,6 +3,7 @@ package com.quizapp.quizapp.services;
 import java.util.List;
 
 import com.quizapp.quizapp.models.Question;
+import com.quizapp.quizapp.models.QuestionValidator;
 import com.quizapp.quizapp.models.Quiz;
 
 public interface QuizService {
@@ -28,4 +29,6 @@ public interface QuizService {
 	boolean validateAnswerAt(Quiz quiz, int index, String a);
 	
 	void removeQuestion(Quiz quiz, int index);
+
+	int evaluateReturnScore(List<QuestionValidator> qa_map);
 }

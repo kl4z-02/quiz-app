@@ -51,13 +51,6 @@
 				</div>
 				<div class="card-body">
 					<table class="table dynamic-update-rows" style="width: 100%">
-						<!-- 						<thead> -->
-						<!-- 							<tr> -->
-						<!-- 								<th>#</th> -->
-						<!-- 								<th>Type</th> -->
-						<!-- 								<th>Contact</th> -->
-						<!-- 							</tr> -->
-						<!-- 						</thead> -->
 						<tbody id="dynamicTableContents">
 							<tr th:fragment="questions"
 								th:each="question,rowStat : ${quiz.questions}">
@@ -104,11 +97,8 @@
 							</tr>
 						</tbody>
 					</table>
-
 				</div>
-
 			</div>
-
         </div>  
         <div class = "box-footer">
             <button type="submit" class = "btn btn-primary">

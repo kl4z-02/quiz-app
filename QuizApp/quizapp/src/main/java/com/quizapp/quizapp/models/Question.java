@@ -25,7 +25,7 @@ public class Question {
     public String answersString;
     private int scoreValue;
     private String questionText;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -63,6 +63,7 @@ public class Question {
         answers = new ArrayList<String>(Arrays.asList(answersString.split("\\s*,\\s*")));
     }
     public boolean validate(String inp){
+        setList();
         for(String var: answers){
             if(var.equalsIgnoreCase(inp))
                 return true;

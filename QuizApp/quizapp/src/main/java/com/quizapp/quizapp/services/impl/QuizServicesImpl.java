@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.quizapp.quizapp.models.Question;
+import com.quizapp.quizapp.models.QuestionValidator;
 import com.quizapp.quizapp.models.Quiz;
 
 import com.quizapp.quizapp.repositories.QuizRepository;
@@ -77,5 +78,14 @@ public class QuizServicesImpl implements QuizService{
     @Override
     public void removeQuestion(Quiz quiz, int index){
         quiz.getQuestions().remove(index);
+    }
+
+    @Override
+    public int evaluateReturnScore(List<QuestionValidator> qa_map){
+        int t = 100;
+        for(QuestionValidator q: qa_map){
+            t += q.validateReturnScore();
+        }
+        return t;
     }
 }
