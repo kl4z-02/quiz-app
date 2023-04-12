@@ -1,5 +1,7 @@
 package com.quizapp.quizapp.models;
 
+import java.util.ArrayList;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,18 +10,23 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class QuestionValidator {
-    public Question question;
-    public String userInput;
 
-    public QuestionValidator(String inp){
-        userInput = inp;
+
+    ArrayList<QA> QAList = new ArrayList<QA>();
+
+    public void addQA(Quiz quiz){
+        for(Question q : quiz.getQuestions()){
+            QAList.add(new QA(q.getQuestionText(), q.getScoreValue(), ""));
+        }
     }
-
-    public int validateReturnScore(){
-        if(question.validate(userInput))
-            return question.getScoreValue();
-        else    
-            return 10;
+    
+    public int validateReturnScore(Quiz quiz){
+        int t = 0;
+        for(int i =0;i<QAList.size();i++)
+        {
+            t += (quiz.getQuestionAt(i).validate(QAList.get(i).userInput))?quiz.getQuestionAt(i).getScoreValue():0;
+        }
+        return t;
     }
 
 }

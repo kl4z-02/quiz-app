@@ -30,5 +30,5 @@ public interface QuizService {
 	
 	void removeQuestion(Quiz quiz, int index);
 
-	int evaluateReturnScore(List<QuestionValidator> qa_map);
+	//int evaluateReturnScore(QuestionValidator qa_map);
 }

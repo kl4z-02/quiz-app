@@ -18,13 +18,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.quizapp.quizapp.models.Quiz;
 import com.quizapp.quizapp.services.QuizService;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+
 import com.quizapp.quizapp.models.Question;
 import com.quizapp.quizapp.models.QuestionValidator;
 @Controller
 public class QuizController {
     @Autowired
     QuizService quizService; 
-
+    @PostMapping("/save")
+    public String save(HttpServletRequest request, HttpSession session, Model model) {
+        String name = request.getParameter("name");
+        session.setAttribute("name", name);
+        model.addAttribute("message", "Data saved successfully");
+        return "home";
+    }
     @GetMapping("/quizzes")
     public String quizList(Model model){
         model.addAttribute("quizzes", quizService.getAllQuizzes());
@@ -58,22 +68,20 @@ public class QuizController {
     public String playQuizAsTable(Model model,  @PathVariable long id){
         Quiz quiz = quizService.getQuizById(id);
         model.addAttribute("quiz", quiz);
-        ArrayList<QuestionValidator> qa_map = new ArrayList<QuestionValidator>();
-        for(Question q: quiz.getQuestions()){
-            qa_map.add(new QuestionValidator(q, ""));
-        }
+        QuestionValidator qv = new QuestionValidator();
+        qv.addQA(quiz);
         //System.out.println(qa_map.size());
-        model.addAttribute("qa_map", qa_map);
+        model.addAttribute("qv", qv);
         //model.addAttribute("qa_map_s", qa_map.size());
+        //session.setAttribute("qa_map", qa_map);
         return "play_quiz_table";
     }
-    @PostMapping("/quizzes/display")
-    public String evaluateQuizAsTable(@Validated @ModelAttribute("qa_map") ArrayList<QuestionValidator> qa_map, BindingResult bindingResult, Model model){
+    @PostMapping("/quizzes/play/{id}")
+    public String evaluateQuizAsTable(@ModelAttribute("qv") QuestionValidator qa_map ,Model model, @PathVariable long id){
+        //ArrayList<QuestionValidator> qa_map = (ArrayList<QuestionValidator>) session.getAttribute("qa_map");
         //int t = quizService.evaluateReturnScore(qa_map);
-        if (bindingResult.hasErrors()) {
-            return "/";
-        }
-        model.addAttribute("score", qa_map.size());
+
+        model.addAttribute("score", qa_map.validateReturnScore(quizService.getQuizById(id)));
         return "play_quiz_table_results";
     }
 }

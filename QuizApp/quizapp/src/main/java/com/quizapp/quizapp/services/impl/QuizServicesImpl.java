@@ -80,12 +80,5 @@ public class QuizServicesImpl implements QuizService{
         quiz.getQuestions().remove(index);
     }
 
-    @Override
-    public int evaluateReturnScore(List<QuestionValidator> qa_map){
-        int t = 100;
-        for(QuestionValidator q: qa_map){
-            t += q.validateReturnScore();
-        }
-        return t;
-    }
+
 }
