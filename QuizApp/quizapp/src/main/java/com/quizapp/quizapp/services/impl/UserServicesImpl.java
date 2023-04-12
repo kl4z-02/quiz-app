@@ -1,7 +1,14 @@
 package com.quizapp.quizapp.services.impl;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.quizapp.quizapp.models.User;
@@ -13,7 +20,7 @@ import lombok.Builder;
 @Service
 @Builder
 public class UserServicesImpl implements UserService{
-
+    
     private UserRepository userRepository;
     @Override
     public List<User> getAllUsers() {
@@ -40,4 +47,13 @@ public class UserServicesImpl implements UserService{
         userRepository.deleteById(id);
     }
     
+    @Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	
+		User user = userRepository.findByusername(username);
+		if(user == null) {
+			throw new UsernameNotFoundException("Invalid username or password.");
+		}
+		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),new ArrayList<>());		
+	}
 }

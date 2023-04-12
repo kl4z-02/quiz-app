@@ -19,8 +19,8 @@ public class Question {
     @Singular("answer")
     public List<String> answers;
     
-    @EmbeddedId()
-    public int qId;
+    // @EmbeddedId()
+    // public int qId;
     
     public String answerString;
     

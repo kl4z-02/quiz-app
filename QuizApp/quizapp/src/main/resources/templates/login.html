@@ -32,14 +32,19 @@
 	<div class = "container">
 		<div class = "row">
 			<div class ="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
-				<!-- success message -->
-				<div th:if="${param.success}">
-					<div class="alert alert-info">You've successfully registered
-						to our awesome app!</div>
-				</div>
-				<h1 class = "text-center"> Registration </h1>
+				<h1 class = "text-center"> Login </h1>
 				<div class = "card-body">
-					<form th:action="@{/users}" th:object = "${user}" method="POST">
+					<form th:action="@{/login}" th:object = "${user}" method="POST">
+                        <!-- error message -->
+                        <div th:if="${param.error}">
+                            <div class="alert alert-danger">Invalid username or
+                                password.</div>
+                        </div>
+
+                        <!-- logout message -->
+                        <div th:if="${param.logout}">
+                            <div class="alert alert-info">You have been logged out.</div>
+                        </div>
 						<div class ="form-group">
 							<label> Username </label>
 							<input
@@ -68,7 +73,7 @@
 							</button>
 						</div>
 					</form>
-					<span>Already registered? <a href="/" th:href="@{/login}">Login
+					<span>New user? <a href="/" th:href="@{/users/new}">Register
 						here</a></span>
 				</div>
 			</div>

@@ -14,8 +14,8 @@ import com.quizapp.quizapp.services.UserService;
 @Controller
 
 public class UserController {
-    @Autowired
-    UserService userService;
+
+    private UserService userService;
 
     @GetMapping("/users")
     public String userDetails(Model model){
@@ -33,6 +33,7 @@ public class UserController {
     @PostMapping("/users")
 	public String saveUser(@ModelAttribute("user") User user) {
 		userService.saveUser(user);
-		return "redirect:/users";
+        return "quizzes";
+
 	}
 }
