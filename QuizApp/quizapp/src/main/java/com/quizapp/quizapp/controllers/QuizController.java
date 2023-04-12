@@ -28,7 +28,7 @@ public class QuizController {
     @Autowired
     private UserRepository userRepository;
     @GetMapping("/login")
-	public String login() {
+	public String login(@ModelAttribute("user") User user) {
 		return "login";
 	}
 

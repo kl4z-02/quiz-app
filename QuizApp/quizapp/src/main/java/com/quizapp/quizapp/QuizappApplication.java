@@ -7,10 +7,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.quizapp.quizapp.models.*;
 import com.quizapp.quizapp.repositories.*;
+import com.quizapp.quizapp.services.UserService;
 @SpringBootApplication
 public class QuizappApplication implements CommandLineRunner{
 	@Autowired
     private QuizBaseRepository<Quiz> quizRepository;
+    @Autowired
+    private UserRepository userRepository;
 	public static void main(String[] args) {
 		SpringApplication.run(QuizappApplication.class, args);
 	}
@@ -35,5 +38,9 @@ public class QuizappApplication implements CommandLineRunner{
         // b.addQuestion(q1);
         // b.addQuestion(q2);
         // quizRepository.save(b);
+        User u = new User();
+        u.setUsername("abc");
+        u.setPassword("pqr");
+        userRepository.save(u);
 	}	
 }
