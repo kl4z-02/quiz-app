@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.quizapp.quizapp.models.Quiz;
+import com.quizapp.quizapp.models.*;
 import com.quizapp.quizapp.services.QuizService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,15 +28,10 @@ import com.quizapp.quizapp.models.QuestionValidator;
 public class QuizController {
     @Autowired
     QuizService quizService; 
-    @PostMapping("/save")
-    public String save(HttpServletRequest request, HttpSession session, Model model) {
-        String name = request.getParameter("name");
-        session.setAttribute("name", name);
-        model.addAttribute("message", "Data saved successfully");
-        return "home";
-    }
+
     @GetMapping("/quizzes")
-    public String quizList(Model model){
+    public String quizList(Model model, HttpServletRequest request){
+        model.addAttribute("username", ((User) (request.getSession().getAttribute("currentUser"))).getUsername());
         model.addAttribute("quizzes", quizService.getAllQuizzes());
         return "quizzes";
     }

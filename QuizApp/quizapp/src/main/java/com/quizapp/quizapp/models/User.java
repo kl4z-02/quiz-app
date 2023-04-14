@@ -1,4 +1,5 @@
 package com.quizapp.quizapp.models;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,6 +19,8 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long UID;
+
+    @Column(unique= true)
     private String username;
     private String password;
 
@@ -46,7 +49,5 @@ public class User {
     public void setPassword(String pwd){
         password = DigestUtils.sha256Hex(pwd);
     }
-    public boolean verify(String pwd){
-        return password == DigestUtils.sha256Hex(pwd);
-    }
+
 }

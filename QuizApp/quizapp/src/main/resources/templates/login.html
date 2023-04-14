@@ -8,8 +8,10 @@
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 	crossorigin="anonymous">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		
 </head>
 <body>
+	<!-- create navigation bar ( header) -->
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<a class="navbar-brand" href="#">Navbar</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,28 +49,58 @@
 		  </form>
 		</div>
 	  </nav>
-	<tr th:each = "quiz: ${quizzes}">
-		Creator ID: <p th:text = "${quiz.getCreatorId()}"></p>
-		<p th:text = "${quiz.getDescription()}"></p>
-		<td>
-			<table class = "table table-striped table-bordered">
-				<thead class = "table-dark">
-					<tr>
-						<th> Question</th>
-						<th> Score</th>
-						<th> Answer </th>
-					</tr>
-				</thead>
-				
-				<tbody>
-					<tr th:each = "question: ${quiz.getQuestions()}">
-						<td th:text = "${question.getQuestionText()}"></td>
-						<td th:text = "${question.getScoreValue()}"></td>
-						<td th:text = "${question.getFirstAnswer()}"></td>
-					</tr>
-				</tbody>
-			</table>
-		</td>
-	</tr>
+	<br>
+	<br>
+	<div class = "container">
+		<div class = "row">
+			<div class ="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+				<h1 class = "text-center"> Login </h1>
+				<h1 th:text="${current_username}"> </h1>
+				<div class = "card-body">
+					<form th:action="@{/login}" th:object = "${user}" method="POST">
+                        <!-- error message -->
+                        <!-- <div th:if="${param.error}">
+                            <div class="alert alert-danger">Invalid username or
+                                password.</div>
+                        </div> -->
+
+                        <!-- logout message -->
+                        <!-- <div th:if="${param.logout}">
+                            <div class="alert alert-info">You have been logged out.</div>
+                        </div> -->
+						<div class ="form-group">
+							<label> Username </label>
+							<input
+							type = "text"
+							name = "Username"
+							th:field = "*{username}"
+							class = "form-control"
+							placeholder="Enter your username" 
+							/>
+						</div>
+						
+						<div class ="form-group">
+							<label> Password </label>
+							<input
+							type = "password"
+							name = "password"
+							th:field = "*{password}"
+							class = "form-control"
+							placeholder="Enter your password" 
+							/>
+						</div>
+						
+						<div class = "box-footer">
+							<button type="submit" class = "btn btn-primary">
+								Submit
+							</button>
+						</div>
+					</form>
+					<span>New user? <a href="/" th:href="@{/users/new}">Register
+						here</a></span>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

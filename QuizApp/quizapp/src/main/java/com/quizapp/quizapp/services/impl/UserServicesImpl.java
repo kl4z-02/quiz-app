@@ -40,4 +40,9 @@ public class UserServicesImpl implements UserService{
         userRepository.deleteById(id);
     }
     
+    @Override
+    public boolean validate(User u){
+        return true;
+        //return (userRepository.findByUsernameOrderByUID(u.getUsername()).get(0).getPassword().equals(u.getPassword()));
+    }
 }
