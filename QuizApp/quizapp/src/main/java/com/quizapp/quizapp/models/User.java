@@ -7,7 +7,7 @@ import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
-
+import java.io.Serializable;
 import org.apache.commons.codec.digest.DigestUtils;
 
 @Entity
@@ -15,7 +15,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class User {
+public class User implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long UID;
