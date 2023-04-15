@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.quizapp.quizapp.exceptions.InvalidParamException;
 import com.quizapp.quizapp.models.*;
+import com.quizapp.quizapp.services.GameService;
 import com.quizapp.quizapp.services.QuizService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -31,6 +33,8 @@ public class QuizController {
     @Autowired
     QuizService quizService; 
 
+    @Autowired
+    GameService gameService;
     @GetMapping("/quizzes")
     public String quizList(Model model, HttpServletRequest request){
         model.addAttribute("username", ((User) (request.getSession().getAttribute("currentUser"))).getUsername());
@@ -87,10 +91,17 @@ public class QuizController {
         model.addAttribute("user_id", ((User) (request.getSession().getAttribute("currentUser"))).getUID());
         return "room_landing";
     }
-    @GetMapping("/room/play")
-    public String playRoom(@RequestParam("game_id") String id, Model model){
-        model.addAttribute("game_id", id);
-        return "room";
+    @GetMapping("/room/play/{game_id}")
+    public String playRoom(@PathVariable("game_id") String game_id, Model model, HttpServletRequest request) throws InvalidParamException{
+        model.addAttribute("username", ((User) (request.getSession().getAttribute("currentUser"))).getUsername());
+        model.addAttribute("game_id", game_id);
+        Quiz quiz = quizService.getQuizById(gameService.getQuizId(game_id));
+        model.addAttribute("quiz", quiz);
+        QuestionValidator qv = new QuestionValidator();
+        qv.addQA(quiz);
+        //System.out.println(qa_map.size());
+        model.addAttribute("qv", qv);
+        return "room_play";
     }
 
 }

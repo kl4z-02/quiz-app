@@ -56,5 +56,13 @@ public class GameServicesImpl implements GameService {
         return game;
     }
 
+    @Override
+    public long getQuizId(String id) throws InvalidParamException{
+        if(!QuizGameStorage.getInstance().getGames().containsKey(id)){
+            throw new InvalidParamException("Game with provided id doesn't exist");
+        }
+        QuizGame game = QuizGameStorage.getInstance().getGames().get(id);
+        return game.getQuizId();
+    }
     
 }

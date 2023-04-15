@@ -60,7 +60,8 @@ public class Question {
         return answers.get(0);
     }
     public void setList(){
-        answers = new ArrayList<String>(Arrays.asList(answersString.split("\\s*,\\s*")));
+        if(answersString!=null)
+            answers = new ArrayList<String>(Arrays.asList(answersString.split("\\s*,\\s*")));
     }
     public boolean validate(String inp){
         setList();

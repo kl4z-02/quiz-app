@@ -11,4 +11,5 @@ public interface GameService {
     QuizGame createGame(long player, long id);
     QuizGame connectToRandomGame(long u) throws NotFoundException;
     QuizGame connectToGame(long u, String s) throws InvalidParamException, InvalidGameException;
+    long getQuizId(String id) throws InvalidParamException;
 }
