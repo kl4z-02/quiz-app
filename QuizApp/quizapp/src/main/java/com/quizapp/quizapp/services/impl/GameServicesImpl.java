@@ -10,13 +10,14 @@ import com.quizapp.quizapp.exceptions.NotFoundException;
 import com.quizapp.quizapp.models.GameStatus;
 import com.quizapp.quizapp.models.QuizGame;
 import com.quizapp.quizapp.models.User;
+import com.quizapp.quizapp.services.GameService;
 import com.quizapp.quizapp.storage.QuizGameStorage;
 
 import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
-public class GameServicesImpl {
+public class GameServicesImpl implements GameService {
     
     public QuizGame createGame(User u){
         QuizGame quizGame = new QuizGame();

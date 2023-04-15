@@ -12,10 +12,11 @@ import com.quizapp.quizapp.models.Quiz;
 import com.quizapp.quizapp.repositories.QuizRepository;
 import com.quizapp.quizapp.services.QuizService;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 
 @Service
-@Builder
+@AllArgsConstructor
 public class QuizServicesImpl implements QuizService{
 
     @Autowired

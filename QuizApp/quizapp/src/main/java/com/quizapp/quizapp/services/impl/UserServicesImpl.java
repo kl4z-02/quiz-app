@@ -8,10 +8,11 @@ import com.quizapp.quizapp.models.User;
 import com.quizapp.quizapp.repositories.UserRepository;
 import com.quizapp.quizapp.services.UserService;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 
 @Service
-@Builder
+@AllArgsConstructor
 public class UserServicesImpl implements UserService{
 
     private UserRepository userRepository;
