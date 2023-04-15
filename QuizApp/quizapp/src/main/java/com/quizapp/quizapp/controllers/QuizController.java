@@ -79,4 +79,6 @@ public class QuizController {
         model.addAttribute("score", qa_map.validateReturnScore(quizService.getQuizById(id)));
         return "play_quiz_table_results";
     }
+
+    
 }
