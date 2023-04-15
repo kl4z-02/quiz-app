@@ -7,5 +7,5 @@ import lombok.Data;
 @Data
 public class ConnectRequest {
     private String gameId;
-    private User player;
+    private long playerId;
 }

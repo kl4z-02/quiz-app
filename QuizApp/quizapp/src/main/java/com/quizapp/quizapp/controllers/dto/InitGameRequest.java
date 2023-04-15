@@ -8,5 +8,5 @@ import lombok.Data;
 public class InitGameRequest {
 
     private long quizId;
-    private User player;
+    private long player;
 }

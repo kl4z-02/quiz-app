@@ -1,0 +1,132 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"></html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>Room landing page</title>
+    <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" rel="stylesheet">
+    <!--    libs for stomp and sockjs-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <!--    end libs for stomp and sockjs-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>
+        const url = 'http://localhost:8080';
+        let stompClient;
+        let gameId;
+
+        function connectToSocket(gameId) {
+
+            console.log("connecting to the game");
+            let socket = new SockJS(url + "/gameplay");
+            stompClient = Stomp.over(socket);
+            stompClient.connect({}, function (frame) {
+                console.log("connected to the frame: " + frame);
+                stompClient.subscribe("/topic/game-progress/" + gameId, function (response) {
+                    let data = JSON.parse(response.body);
+                    console.log(data);
+                    displayResponse(data);
+                })
+            })
+        }
+        function create_game() {
+            let quiz_id = document.getElementById("q_id").value;
+            let user_id = document.getElementById("u_id").innerHTML;
+            if (quiz_id == null || quiz_id === '') {
+                alert("Please enter quiz id");
+            } else {
+                $.ajax({
+                    url: url + "/game/start",
+                    type: 'POST',
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        "quizId": quiz_id,
+                        "user_id": user_id
+                    }),
+                    success: function (data) {
+                        gameId = data.gameId;
+                        connectToSocket(gameId);
+                        alert("Your created a game. Game id is: " + data.gameId);
+                        gameOn = true;
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                })
+            }
+        }
+        function connectToRandom() {
+            let user_id = document.getElementById("u_id").innerHTML;
+            console.log(user_id);
+                $.ajax({
+                    url: url + "/game/connect/random",
+                    type: 'POST',
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: user_id
+                    ,
+                    success: function (data) {
+                        gameId = data.gameId;
+                        connectToSocket(gameId);
+                        alert("Congrats you're playing on: " +gameId);
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                })
+            }
+    
+
+        function connectToSpecificGame() {
+                let user_id = document.getElementById("u_id").innerHTML;
+                let gameId = document.getElementById("game_id").value;
+                if (gameId == null || gameId === '') {
+                    alert("Please enter game id");
+                }
+                $.ajax({
+                    url: url + "/game/connect",
+                    type: 'POST',
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        "playerId": user_id,
+                        "gameId": gameId
+                    }),
+                    success: function (data) {
+                        gameId = data.gameId;
+                        connectToSocket(gameId);
+                        alert("Congrats you're playing at: " + data.gameId);
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                })
+            }
+        
+
+    </script>
+</head>
+<body>
+<body>
+<div class="text-center" id="box">
+    <header>
+        <h1>Create a room or join by code</h1>
+    </header>
+    <input id="q_id" placeholder="Type the quiz id here">
+    <button onclick="create_game()">Create a new room</button>
+    <button onclick="connectToRandom()">Connect to random room</button>
+    <input id="game_id" placeholder="Paste room id">
+    <button onclick="connectToSpecificGame()">Connect by game id</button>
+    <footer>
+        <th:block><span>You are logged in as user id: <span id="u_id" th:text="${user_id}"></span></span></th:block>
+    </footer>
+</div>
+
+</body>
+</body>
+</html>

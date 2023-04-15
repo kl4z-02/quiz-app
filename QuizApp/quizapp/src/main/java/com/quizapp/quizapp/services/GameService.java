@@ -8,7 +8,7 @@ import com.quizapp.quizapp.models.User;
 
 public interface GameService {
 
-    QuizGame createGame(User player, long id);
-    QuizGame connectToRandomGame(User u) throws NotFoundException;
-    QuizGame connectToGame(User u, String s) throws InvalidParamException, InvalidGameException;
+    QuizGame createGame(long player, long id);
+    QuizGame connectToRandomGame(long u) throws NotFoundException;
+    QuizGame connectToGame(long u, String s) throws InvalidParamException, InvalidGameException;
 }

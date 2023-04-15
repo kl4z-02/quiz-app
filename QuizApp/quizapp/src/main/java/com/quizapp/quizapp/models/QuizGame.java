@@ -8,11 +8,11 @@ import lombok.Data;
 @Data
 public class QuizGame {
     private String gameId;
-    private List<User> players = new ArrayList<User>();
+    private List<Long> players = new ArrayList<Long>();
     private GameStatus status;
     private long quizId;
 
-    public void addPlayer(User u){
+    public void addPlayer(long u){
         players.add(u);
     }
 }

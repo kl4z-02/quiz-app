@@ -20,7 +20,7 @@ import lombok.AllArgsConstructor;
 public class GameServicesImpl implements GameService {
     
     @Override
-    public QuizGame createGame(User u, long quizId){
+    public QuizGame createGame(long u, long quizId){
         QuizGame quizGame = new QuizGame();
         quizGame.addPlayer(u);
         quizGame.setGameId(UUID.randomUUID().toString());
@@ -30,7 +30,7 @@ public class GameServicesImpl implements GameService {
         return quizGame;
     }
     @Override
-    public QuizGame connectToGame(User u, String gameId) throws InvalidParamException, InvalidGameException{
+    public QuizGame connectToGame(long u, String gameId) throws InvalidParamException, InvalidGameException{
         if(!QuizGameStorage.getInstance().getGames().containsKey(gameId)){
             throw new InvalidParamException("Game with provided id doesn't exist");
         }
@@ -46,11 +46,11 @@ public class GameServicesImpl implements GameService {
         return game;
     }
     @Override
-    public QuizGame connectToRandomGame(User u) throws NotFoundException {
+    public QuizGame connectToRandomGame(long player) throws NotFoundException {
         QuizGame game = QuizGameStorage.getInstance().getGames().values().stream()
                 .filter(it -> it.getStatus().equals(GameStatus.NEW))
                 .findFirst().orElseThrow(() -> new NotFoundException("Game not found"));
-        game.addPlayer(u);
+        game.addPlayer(player);
         game.setStatus(GameStatus.IN_PROGRESS);
         QuizGameStorage.getInstance().addGame(game);
         return game;

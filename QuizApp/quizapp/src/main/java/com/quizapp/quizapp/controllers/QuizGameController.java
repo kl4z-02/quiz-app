@@ -38,11 +38,11 @@ public class QuizGameController {
     public ResponseEntity<QuizGame> connect(@RequestBody ConnectRequest request) throws InvalidParamException, InvalidGameException {
         log.info("connect request: {}", request);
         log.info("quiz storage has : {}", QuizGameStorage.getInstance().getGames());
-        return ResponseEntity.ok(gameService.connectToGame(request.getPlayer(), request.getGameId()));
+        return ResponseEntity.ok(gameService.connectToGame(request.getPlayerId(), request.getGameId()));
     }
 
     @PostMapping("/connect/random")
-    public ResponseEntity<QuizGame> connectRandom(@RequestBody User player) throws NotFoundException {
+    public ResponseEntity<QuizGame> connectRandom(@RequestBody long player) throws NotFoundException {
         log.info("connect random {}", player);
         return ResponseEntity.ok(gameService.connectToRandomGame(player));
     }

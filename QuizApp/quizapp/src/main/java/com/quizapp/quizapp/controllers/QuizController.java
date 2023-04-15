@@ -82,5 +82,15 @@ public class QuizController {
         return "play_quiz_table_results";
     }
 
+    @GetMapping("/room/landing")
+    public String openRoom(Model model, HttpServletRequest request){
+        model.addAttribute("user_id", ((User) (request.getSession().getAttribute("currentUser"))).getUID());
+        return "room_landing";
+    }
+    @GetMapping("/room/play")
+    public String playRoom(@RequestParam("game_id") String id, Model model){
+        model.addAttribute("game_id", id);
+        return "room";
+    }
 
 }
