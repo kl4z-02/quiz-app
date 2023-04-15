@@ -1,5 +1,6 @@
 package com.quizapp.quizapp.storage;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import com.quizapp.quizapp.models.QuizGame;
@@ -9,6 +10,7 @@ public class QuizGameStorage {
     private static QuizGameStorage instance;
 
     private QuizGameStorage(){
+        games = new HashMap<String, QuizGame>();
     }
 
     public static synchronized QuizGameStorage getInstance() {
@@ -22,7 +24,7 @@ public class QuizGameStorage {
         return games;
     }
 
-    public void setGame(QuizGame game) {
+    public void addGame(QuizGame game) {
         games.put(game.getGameId(), game);
     }
 }

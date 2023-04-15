@@ -21,9 +21,11 @@ import com.quizapp.quizapp.services.QuizService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
 
 import com.quizapp.quizapp.models.Question;
 import com.quizapp.quizapp.models.QuestionValidator;
+
 @Controller
 public class QuizController {
     @Autowired
@@ -80,5 +82,5 @@ public class QuizController {
         return "play_quiz_table_results";
     }
 
-    
+
 }

@@ -1,5 +1,6 @@
 package com.quizapp.quizapp.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Data;
@@ -7,9 +8,9 @@ import lombok.Data;
 @Data
 public class QuizGame {
     private String gameId;
-    private List<User> players;
+    private List<User> players = new ArrayList<User>();
     private GameStatus status;
-    private Quiz quiz;
+    private long quizId;
 
     public void addPlayer(User u){
         players.add(u);
