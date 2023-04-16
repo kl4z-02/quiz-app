@@ -36,9 +36,9 @@ public class UserController {
     public String handleLogin(@ModelAttribute("user") User user, HttpServletRequest request){
         //request.setAttribute("current_user", user);
         //user.setPassword(user.getPassword());
-        if(user!=null){
+        if(userService.validate(user)){
             request.getSession().setAttribute("currentUser", user);
-            return "redirect:/login";
+            return "redirect:/room/landing";
         }
         else return "error";
     }

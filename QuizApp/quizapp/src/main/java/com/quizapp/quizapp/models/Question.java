@@ -64,7 +64,8 @@ public class Question {
             answers = new ArrayList<String>(Arrays.asList(answersString.split("\\s*,\\s*")));
     }
     public boolean validate(String inp){
-        setList();
+        if(answers==null || answers.size()<1)
+            setList();
         for(String var: answers){
             if(var.equalsIgnoreCase(inp))
                 return true;
