@@ -29,4 +29,16 @@ public class QuestionValidator {
         return t;
     }
 
+    public ScoreUser validateReturnScoreWithUserName(Quiz quiz, String name){
+        int t = 0;
+        for(int i =0;i<QAList.size();i++)
+        {
+            t += (quiz.getQuestionAt(i).validate(QAList.get(i).userInput))?quiz.getQuestionAt(i).getScoreValue():0;
+        }
+        ScoreUser val.score = t;
+        ScoreUser val.userName = name;
+        return val;
+    }
+    
+
 }

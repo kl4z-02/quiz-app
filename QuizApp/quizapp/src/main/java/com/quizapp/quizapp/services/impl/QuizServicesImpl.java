@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.quizapp.quizapp.models.Question;
 import com.quizapp.quizapp.models.QuestionValidator;
 import com.quizapp.quizapp.models.Quiz;
-
+import com.quizapp.quizapp.models.ScoreUser;
 import com.quizapp.quizapp.repositories.QuizRepository;
 import com.quizapp.quizapp.services.QuizService;
 
@@ -79,6 +79,11 @@ public class QuizServicesImpl implements QuizService{
     @Override
     public void removeQuestion(Quiz quiz, int index){
         quiz.getQuestions().remove(index);
+    }
+
+    @Override
+    public void saveScore(ScoreUser scoreUser){
+        ScoreRepository.save(scoreUser);
     }
 
 

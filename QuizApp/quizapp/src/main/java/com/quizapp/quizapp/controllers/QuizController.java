@@ -27,6 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import com.quizapp.quizapp.models.Question;
 import com.quizapp.quizapp.models.QuestionValidator;
+import com.quizapp.quizapp.models.ScoreUser;
 
 @Controller
 public class QuizController {
@@ -78,11 +79,13 @@ public class QuizController {
         return "play_quiz_table";
     }
     @PostMapping("/quizzes/play/{id}")
-    public String evaluateQuizAsTable(@ModelAttribute("qv") QuestionValidator qa_map ,Model model, @PathVariable long id){
+    public String evaluateQuizAsTable(@ModelAttribute("qv") QuestionValidator qa_map ,Model model, @PathVariable long id, HttpServletRequest request){
         //ArrayList<QuestionValidator> qa_map = (ArrayList<QuestionValidator>) session.getAttribute("qa_map");
         //int t = quizService.evaluateReturnScore(qa_map);
 
-        model.addAttribute("score", qa_map.validateReturnScore(quizService.getQuizById(id)));
+        //model.addAttribute("score", qa_map.validateReturnScore(quizService.getQuizById(id)));
+        model.addAttribute("player",qa_map.validateReturnScoreWithUserName(quizService.getQuizById(id), ((User) (request.getSession().getAttribute("currentUser"))).getUsername()));
+        
         return "play_quiz_table_results";
     }
 
