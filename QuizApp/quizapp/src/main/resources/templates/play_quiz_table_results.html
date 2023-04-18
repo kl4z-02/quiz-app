@@ -34,7 +34,7 @@
                 <th>UserName</th>
                 <th>Score</th>
             </tr>
-            <tr th:each = "player: ${quiz.getQuestions()}">
+            <tr th:each = "player: ${leaderboard}">
                 <td  th:text = "${player.getUserName()}"></td>
                 <td  th:text = "${player.getScore()}"></td>
             </tr>

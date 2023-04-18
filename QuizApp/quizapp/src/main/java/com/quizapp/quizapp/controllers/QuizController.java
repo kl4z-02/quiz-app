@@ -20,6 +20,7 @@ import com.quizapp.quizapp.exceptions.InvalidParamException;
 import com.quizapp.quizapp.models.*;
 import com.quizapp.quizapp.services.GameService;
 import com.quizapp.quizapp.services.QuizService;
+import com.quizapp.quizapp.services.ScoreUserService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -28,6 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 import com.quizapp.quizapp.models.Question;
 import com.quizapp.quizapp.models.QuestionValidator;
 import com.quizapp.quizapp.models.ScoreUser;
+import com.quizapp.quizapp.repositories.ScoreRepository;
 
 @Controller
 public class QuizController {
@@ -36,6 +38,10 @@ public class QuizController {
 
     @Autowired
     GameService gameService;
+    @Autowired
+    private ScoreUserService scoreUserService;
+    @Autowired
+    private ScoreRepository scoreRepository;
     @GetMapping("/quizzes")
     public String quizList(Model model, HttpServletRequest request){
         model.addAttribute("username", ((User) (request.getSession().getAttribute("currentUser"))).getUsername());
@@ -84,8 +90,11 @@ public class QuizController {
         //int t = quizService.evaluateReturnScore(qa_map);
 
         //model.addAttribute("score", qa_map.validateReturnScore(quizService.getQuizById(id)));
-        model.addAttribute("player",qa_map.validateReturnScoreWithUserName(quizService.getQuizById(id), ((User) (request.getSession().getAttribute("currentUser"))).getUsername()));
-        
+        //model.addAttribute("player",qa_map.validateReturnScoreWithUserName(quizService.getQuizById(id), ((User) (request.getSession().getAttribute("currentUser"))).getUsername()));
+        ScoreUser scoreUser = new ScoreUser();
+        scoreUser = qa_map.validateReturnScoreWithUserName(quizService.getQuizById(id), ((User) (request.getSession().getAttribute("currentUser"))).getUsername(),id);
+        scoreRepository.save(scoreUser);
+        model.addAttribute("leaderboard", scoreUserService.getAllScores(id));
         return "play_quiz_table_results";
     }
 

@@ -10,6 +10,7 @@ import com.quizapp.quizapp.models.QuestionValidator;
 import com.quizapp.quizapp.models.Quiz;
 import com.quizapp.quizapp.models.ScoreUser;
 import com.quizapp.quizapp.repositories.QuizRepository;
+import com.quizapp.quizapp.repositories.ScoreRepository;
 import com.quizapp.quizapp.services.QuizService;
 
 import lombok.AllArgsConstructor;
@@ -21,6 +22,8 @@ public class QuizServicesImpl implements QuizService{
 
     @Autowired
     private QuizRepository quizRepository;
+    @Autowired
+    private ScoreRepository scoreRepository;
 
     @Override
     public Quiz saveQuiz(Quiz quiz) {
@@ -83,7 +86,7 @@ public class QuizServicesImpl implements QuizService{
 
     @Override
     public void saveScore(ScoreUser scoreUser){
-        ScoreRepository.save(scoreUser);
+        scoreRepository.save(scoreUser);
     }
 
 
