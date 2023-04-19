@@ -8,6 +8,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import com.quizapp.quizapp.models.User;
+import com.quizapp.quizapp.repositories.ScoreRepository;
 import com.quizapp.quizapp.repositories.UserRepository;
 import com.quizapp.quizapp.services.UserService;
 
@@ -16,6 +17,8 @@ import com.quizapp.quizapp.services.UserService;
 public class UserRepositoryTest{
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private ScoreRepository scoreRepository;
     
     @Autowired
     private UserService userService;

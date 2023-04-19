@@ -5,6 +5,7 @@ import java.util.List;
 import com.quizapp.quizapp.models.Question;
 import com.quizapp.quizapp.models.QuestionValidator;
 import com.quizapp.quizapp.models.Quiz;
+import com.quizapp.quizapp.models.ScoreUser;
 
 public interface QuizService {
 	
@@ -31,6 +32,8 @@ public interface QuizService {
 	void removeQuestion(Quiz quiz, int index);
 
 	List<Quiz> getAllQuiz(String username);
+
+	void saveScore(ScoreUser scoreUser);
 
 	//int evaluateReturnScore(QuestionValidator qa_map);
 }

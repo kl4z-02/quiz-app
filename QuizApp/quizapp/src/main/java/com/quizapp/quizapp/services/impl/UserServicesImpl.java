@@ -43,7 +43,7 @@ public class UserServicesImpl implements UserService{
     
     @Override
     public boolean validate(User u){
-        return true;
-        //return (userRepository.findByUsernameOrderByUID(u.getUsername()).get(0).getPassword().equals(u.getPassword()));
+        //return true;
+        return (userRepository.findByUsernameOrderByUID(u.getUsername()).get(0).getPassword().equals(u.getPassword()));
     }
 }
