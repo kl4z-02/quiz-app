@@ -20,6 +20,6 @@ public class ScoreUserServiceImpl implements ScoreUserService {
 
     @Override
     public List<ScoreUser> getAllScores(long quizId) {
-        return scoreRepository.findByQuizIdOrderByScore(quizId);
+        return scoreRepository.findByQuizIdOrderByScoreDesc(quizId);
     }    
 }
