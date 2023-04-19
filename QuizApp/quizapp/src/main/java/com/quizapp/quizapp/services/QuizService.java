@@ -30,5 +30,7 @@ public interface QuizService {
 	
 	void removeQuestion(Quiz quiz, int index);
 
+	List<Quiz> getAllQuiz(String username);
+
 	//int evaluateReturnScore(QuestionValidator qa_map);
 }

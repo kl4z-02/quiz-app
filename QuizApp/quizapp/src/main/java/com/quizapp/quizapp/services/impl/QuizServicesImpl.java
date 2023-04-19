@@ -1,6 +1,7 @@
 package com.quizapp.quizapp.services.impl;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,11 @@ public class QuizServicesImpl implements QuizService{
 
     @Override
     public Quiz getQuizById(Long id) {
-        return quizRepository.findById(id).get();
+        try{
+            return quizRepository.findById(id).get();
+        }catch(NoSuchElementException e){
+            return null;
+        }
     }
 
     @Override
@@ -79,6 +84,11 @@ public class QuizServicesImpl implements QuizService{
     @Override
     public void removeQuestion(Quiz quiz, int index){
         quiz.getQuestions().remove(index);
+    }
+
+    @Override
+    public List<Quiz> getAllQuiz(String username){
+        return quizRepository.findByCreatorId(username);
     }
 
 

@@ -22,7 +22,7 @@ public class QuizappApplication implements CommandLineRunner{
 		SpringApplication.run(QuizappApplication.class, args);
 	}
 	public void run(String ... args){
-		Quiz b = new Quiz("test", 0);
+		Quiz b = new Quiz("test", "abc");
         Question q1 = Question.builder().answer(
                         "abc"
                     ).answer(
