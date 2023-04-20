@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>QuizApp</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" 
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<a class="navbar-brand" href="#">Navbar</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		  <span class="navbar-toggler-icon"></span>
+		</button>
+	  
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		  <ul class="navbar-nav mr-auto">
+			<li class="nav-item active">
+			  <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+			</li>
+			<li class="nav-item">
+			  <a class="nav-link" th:href="@{/update-quiz}">Modify your Quiz</a>
+			</li>
+			<li class="nav-item dropdown">
+			  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				Dropdown
+			  </a>
+			  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+				<a class="dropdown-item" th:href="@{/update-quiz}"></a>
+			  </div>
+			</li>
+			<li class="nav-item">
+			  <a class="nav-link disabled" href="#">Disabled</a>
+			</li>
+		  </ul>
+
+		  <a class="nav-link disabled" href="" th:text="'Logged in as: ' + ${username}"></a>
+		  <form class="form-inline my-2 my-lg-0">
+			<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+		  </form>
+		</div>
+	  </nav>
+	<form th:action="@{/quizzes}" th:object = "${quiz}" method="POST">
+        <div class ="form-group">
+            <label> Description </label>
+            <input
+            type = "text"
+            name = "Description"
+            th:field = "*{description}"
+            class = "form-control"
+            placeholder="Enter description" 
+            />
+        </div>
+
+        <div class="form-group"> <input type = "hidden" th:field="*{id}"></div>
+<!--         
+        <div class ="form-group">
+            <label> creator id </label>
+            <input
+            type = "text"
+            name = "creator"
+            th:field = "*{creatorId}"
+            class = "form-control"
+            placeholder="Enter id" 
+            />
+        </div> -->
+        <div class = "form-group" id="questions">
+            <label> Add Questions</label>
+            
+			<div class="card">
+				<div class="card-header dynamic-update-rows">
+					Questions
+
+					<button type="button" name="addQuestion"
+						class="btn btn-sm btn-success float-right"
+						data-dynamic-update-rows-url="/addQuestion">
+						+
+					</button>
+
+				</div>
+				<div class="card-body">
+					<table class="table dynamic-update-rows" style="width: 100%">
+						<tbody id="dynamicTableContents">
+							<tr th:fragment="questions"
+								th:each="question,rowStat : ${quiz.questions}">
+								<td th:text="${rowStat.count}">1</td>
+								<td><input type="hidden"
+									th:field="${quiz.questions[__${rowStat.index}__].id}">
+								</td>
+								<td><input class="form-control form-control-sm"
+									th:field="${quiz.questions[__${rowStat.index}__].questionText}"
+									th:errorclass="is-invalid" />
+									<div
+										th:if="${#fields.hasErrors('${quiz.questions[__${rowStat.index}__].questionText}')}"
+										class="invalid-feedback"
+										th:errors="${quiz.questions[__${rowStat.index}__].questionText}">
+                                    </div>
+								</td>
+                                <td><input class="form-control form-control-sm"
+									th:field="${quiz.questions[__${rowStat.index}__].answersString}"
+									th:errorclass="is-invalid" />
+									<div
+										th:if="${#fields.hasErrors('${quiz.questions[__${rowStat.index}__].answersString}')}"
+										class="invalid-feedback"
+										th:errors="${quiz.questions[__${rowStat.index}__].answersString}">
+                                    </div>
+								</td>
+                                <td><input class="form-control form-control-sm"
+									th:field="${quiz.questions[__${rowStat.index}__].scoreValue}"
+									th:errorclass="is-invalid" />
+									<div
+										th:if="${#fields.hasErrors('${quiz.questions[__${rowStat.index}__].scoreValue}')}"
+										class="invalid-feedback"
+										th:errors="${quiz.questions[__${rowStat.index}__].scoreValue}">
+                                    </div>
+								</td>
+								<td>
+									<div class="btn-group">
+										<button type="button" name="removeDynamicRow"
+											th:value="${rowStat.index}" class="btn btn-sm btn-danger"
+											data-dynamic-update-rows-url="/removeQuestion">
+											<i class="fas fa-trash"></i>
+										</button>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+        </div>  
+        <div class = "box-footer">
+            <button type="submit" class = "btn btn-primary">
+                Submit
+            </button>
+        </div>
+    </form>
+    <script>
+        $(document).ready(function () {
+
+            // Invoke the corresponding URL to update the dynamic fields section using Ajax
+            $('.dynamic-update-rows').on('click', 'button[data-dynamic-update-rows-url]', function () {
+                //event event.preventDefault();
+                let url = $(this).data('dynamic-update-rows-url');
+
+                // adding the row index, needed when deleting a dynamic row
+                let formData = $('form').serializeArray();
+                let param = {};
+                param["name"] = $(this).attr('name');
+                param["value"] = $(this).val();
+                formData.push(param);
+
+                // updating the dynamic section
+                $('#dynamicTableContents').load(url, formData);
+            });
+
+            // autodismiss alerts
+            window.setTimeout(function() {
+                $(".alert").fadeTo(500, 0).slideUp(500, function(){
+                    $(this).remove();
+                });
+            }, 4000);
+            });
+    </script>
+</body>
+</html>

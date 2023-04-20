@@ -73,10 +73,12 @@ public class QuizController {
     @PostMapping("/quizzes")
     public String saveQuiz(@ModelAttribute("quiz") Quiz quiz, @ModelAttribute("questions") ArrayList<Question> questions,HttpServletRequest request ){
         quiz.setCreatorId(((User) (request.getSession().getAttribute("currentUser"))).getUsername());
+        log.info("!!!!!!!!!!!ID Value!!!!!!!!!: ",quiz.getId());
         log.info("connect request: {}", quiz);
         if(quizService.getQuizById(quiz.getId())!=null){
             quizService.deleteQuizById(quiz.getId());
         }
+        //log.info("!!!!!!!!!!!ID Value!!!!!!!!!: ",quiz.getId());
         quizService.saveQuiz(quiz);
 
         return "redirect:/quizzes";
@@ -88,7 +90,6 @@ public class QuizController {
         String username1 = ((User) (request.getSession().getAttribute("currentUser"))).getUsername();
         List<Quiz> retArr = quizService.getAllQuiz(username1);
         model.addAttribute("array", retArr);
-        
         return "update-quiz";
     }
 
@@ -100,8 +101,13 @@ public class QuizController {
 
     @GetMapping("/update/{id}")
     public String update(Model model,@PathVariable long id,HttpServletRequest request){
-        model.addAttribute("quiz", quizService.getQuizById(id));
-        return "create_quiz";
+        Quiz quiz =  quizService.getQuizById(id);
+        model.addAttribute("quiz",quiz);
+        model.addAttribute("username", 
+                            ((User) (request.getSession().getAttribute("currentUser"))).getUsername());
+        
+        log.info("/////////////////////////////////////// {} ///////////////////////////", quiz);
+        return "update_created_quiz";
     }
 
     @GetMapping("/quizzes/play/{id}")
