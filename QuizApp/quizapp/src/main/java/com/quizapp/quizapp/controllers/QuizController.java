@@ -52,6 +52,17 @@ public class QuizController {
         return "quizzes";
     }
 
+    @GetMapping("/")
+    public String quizHome(Model model, HttpServletRequest request){
+        User currentUser = (User)request.getSession().getAttribute("currentUser");
+        if(currentUser != null)
+            model.addAttribute("username", currentUser.getUsername());
+        else
+            model.addAttribute("username","Not logged in");
+        //model.addAttribute("quizzes", quizService.getAllQuizzes());
+        return "index";
+    }
+
     @GetMapping("/quizzes/new")
     public String createNewQuiz(Model model, HttpServletRequest request){
         Quiz quiz = new Quiz();
@@ -138,7 +149,7 @@ public class QuizController {
 
     @GetMapping("/room/landing")
     public String openRoom(Model model, HttpServletRequest request){
-        model.addAttribute("user_id", ((User) (request.getSession().getAttribute("currentUser"))).getUID());
+        model.addAttribute("username", ((User) (request.getSession().getAttribute("currentUser"))).getUsername());
         return "room_landing";
     }
     @GetMapping("/room/play/{game_id}")
