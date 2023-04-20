@@ -18,11 +18,11 @@
     </script>
 		
 </head>
-<body>
+<body style = "background-color: rgb(25, 25, 27);">
 	<!-- create navigation bar ( header) -->
     <div th:fragment = "navbar">
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-		<a class="navbar-brand" th:href="@{/}">QuizCraft</a>
+	<nav class="navbar navbar-expand-lg" style="background-color: rgb(255,174,66);">
+		<a class="navbar-brand text-dark" th:href="@{/}">QuizCraft</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		  <span class="navbar-toggler-icon"></span>
 		</button>
@@ -30,13 +30,13 @@
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		  <ul class="navbar-nav mr-auto">
 			<li class="nav-item active">
-			  <a class="nav-link" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
+			  <a class="nav-link text-dark" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
 			</li>
             <li class="nav-item active">
-                <a class="nav-link" th:href="@{/login}">Login</a>
+                <a class="nav-link text-dark" th:href="@{/login}">Login</a>
             </li>
 			<li class="nav-item dropdown">
-			  <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			  <a class="nav-link dropdown-toggle text-dark" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				Quizzes
 			  </a>
 			  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -47,15 +47,27 @@
 			</li>
 		  </ul>
 
-		  <a class="nav-link" th:text="'Logged in as: ' + ${username}"></a>
+		  <a class="nav-link text-dark" th:text="'Logged in as: ' + ${username}"></a>
 		  <form class="form-inline my-2 my-lg-0">
 			<a role="button" class="btn btn-outline-danger my-2 my-sm-0" th:href="@{/logout}">Logout</a>
 		  </form>
 		</div>
 	  </nav>
       </div>
-      
 	<br>
 	<br>
+
+	<br>
+	<br>
+	<br>
+	<div class="container font-italic text-light">
+		<h1 class="font-weight-bold font-italic text-light">Welcome to QuizCraft</h1>
+		<h2>Test your knowledge and have some fun with our Quiz Application!</h2>
+		<h2>Create an Account to Get Started</h2>
+		<br>
+		<br>
+		<h2>How to Play:</h2>
+		<h2>Each quiz consists of multiple questions. Enter the answer you think is correct. At the end of the quiz, click on "Submit" to see your final score.</h2>
+	</div>
 </body>
 </html>
