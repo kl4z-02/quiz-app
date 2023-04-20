@@ -31,6 +31,8 @@ public interface QuizService {
 	
 	void removeQuestion(Quiz quiz, int index);
 
+	List<Quiz> getAllQuiz(String username);
+
 	void saveScore(ScoreUser scoreUser);
 
 	//int evaluateReturnScore(QuestionValidator qa_map);

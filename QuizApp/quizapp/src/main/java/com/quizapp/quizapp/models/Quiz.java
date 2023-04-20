@@ -28,11 +28,11 @@ public class Quiz {
     protected List<Question> questions;
 
     protected String description;
-    protected int creatorId;
+    protected String creatorId;
     public Quiz(){
         questions = new ArrayList<Question>();        
     }
-    public Quiz(String description, int creatorId){
+    public Quiz(String description, String creatorId){
         this.description = description;
         this.creatorId = creatorId;
         questions = new ArrayList<Question>();
@@ -42,10 +42,10 @@ public class Quiz {
         return id;
     }
     
-    public int getCreatorId() {
+    public String getCreatorId() {
         return creatorId;
     }
-    public void setCreatorId(int creatorId) {
+    public void setCreatorId(String creatorId) {
         this.creatorId = creatorId;
     }
    

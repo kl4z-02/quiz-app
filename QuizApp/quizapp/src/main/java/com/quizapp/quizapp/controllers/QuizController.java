@@ -28,14 +28,17 @@ import lombok.extern.slf4j.Slf4j;
 
 import com.quizapp.quizapp.models.Question;
 import com.quizapp.quizapp.models.QuestionValidator;
+import com.quizapp.quizapp.repositories.QuizRepository;
 import com.quizapp.quizapp.models.ScoreUser;
 import com.quizapp.quizapp.repositories.ScoreRepository;
 
 @Controller
+@Slf4j
 public class QuizController {
     @Autowired
     QuizService quizService; 
-
+    @Autowired
+    QuizRepository quizRepository;
     @Autowired
     GameService gameService;
     @Autowired
@@ -50,8 +53,9 @@ public class QuizController {
     }
 
     @GetMapping("/quizzes/new")
-    public String createNewQuiz(Model model){
+    public String createNewQuiz(Model model, HttpServletRequest request){
         Quiz quiz = new Quiz();
+        model.addAttribute("username", ((User) (request.getSession().getAttribute("currentUser"))).getUsername());
         model.addAttribute("quiz", quiz);
 
         return "create_quiz";
@@ -67,9 +71,37 @@ public class QuizController {
 		return "create_quiz :: questions"; // returning the updated section
 	}
     @PostMapping("/quizzes")
-    public String saveQuiz(@ModelAttribute("quiz") Quiz quiz, @ModelAttribute("questions") ArrayList<Question> questions ){
+    public String saveQuiz(@ModelAttribute("quiz") Quiz quiz, @ModelAttribute("questions") ArrayList<Question> questions,HttpServletRequest request ){
+        quiz.setCreatorId(((User) (request.getSession().getAttribute("currentUser"))).getUsername());
+        log.info("connect request: {}", quiz);
+        if(quizService.getQuizById(quiz.getId())!=null){
+            quizService.deleteQuizById(quiz.getId());
+        }
         quizService.saveQuiz(quiz);
+
         return "redirect:/quizzes";
+    }
+
+    @GetMapping("/update-quiz")
+    public String updateQuiz(Model model, HttpServletRequest request){
+        model.addAttribute("username", ((User) (request.getSession().getAttribute("currentUser"))).getUsername());
+        String username1 = ((User) (request.getSession().getAttribute("currentUser"))).getUsername();
+        List<Quiz> retArr = quizService.getAllQuiz(username1);
+        model.addAttribute("array", retArr);
+        
+        return "update-quiz";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteQuiz(Model model,@PathVariable long id,HttpServletRequest request){
+        quizService.deleteQuizById(id);
+        return "redirect:/update-quiz";
+    }
+
+    @GetMapping("/update/{id}")
+    public String update(Model model,@PathVariable long id,HttpServletRequest request){
+        model.addAttribute("quiz", quizService.getQuizById(id));
+        return "create_quiz";
     }
 
     @GetMapping("/quizzes/play/{id}")

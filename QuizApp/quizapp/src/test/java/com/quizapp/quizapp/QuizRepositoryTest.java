@@ -26,7 +26,7 @@ public class QuizRepositoryTest {
     @Test
     public void addQuizThenCheckIfSaved(){
         //QuizService quizService = new QuizServicesImpl();
-        Quiz b = new Quiz("test", 1);
+        Quiz b = new Quiz("test", "abc");
         quizService.addQuestion(b, 
             Question.builder().answer("abc").questionText("some2").scoreValue(20).build()
             );
@@ -37,7 +37,7 @@ public class QuizRepositoryTest {
     @Test
     public void addQuizThenValidateTotalScore(){
 
-        Quiz b = new Quiz("test", 2);
+        Quiz b = new Quiz("test", "abc");
         quizService.addQuestion(b,
             Question.builder().answer("abc").questionText("some").scoreValue(10).build()
             );
@@ -52,7 +52,7 @@ public class QuizRepositoryTest {
     @Test
     public void addQuizThenValidateAnswers(){
 
-        Quiz b = new Quiz("test", 0);
+        Quiz b = new Quiz("test", "abc");
         quizService.addQuestion(b,
                                     Question.builder().answer(
                                         "abc"
@@ -85,7 +85,7 @@ public class QuizRepositoryTest {
 
     @Test
     public void currentlyUseless(){
-        Quiz b = new Quiz("test", 4);
+        Quiz b = new Quiz("test", "abc");
         Question q = Question.builder().answer(
                         "abc"
                     ).answer(
