@@ -150,6 +150,8 @@ public class QuizController {
     @GetMapping("/room/landing")
     public String openRoom(Model model, HttpServletRequest request){
         model.addAttribute("username", ((User) (request.getSession().getAttribute("currentUser"))).getUsername());
+        model.addAttribute("user_id", ((User) (request.getSession().getAttribute("currentUser"))).getUID());
+       
         return "room_landing";
     }
     @GetMapping("/room/play/{game_id}")

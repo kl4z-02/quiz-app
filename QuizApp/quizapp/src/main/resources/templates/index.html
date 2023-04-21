@@ -3,25 +3,35 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>QuizApp</title>
+<div th:fragment="imports">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+		crossorigin="anonymous">
+		</script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" 
+			integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" 
+			crossorigin="anonymous">
+		</script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
+		integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" 
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-	crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-    <script>
-     $(document).ready(function(){
-        $('.dropdown-toggle').dropdown()
-    });
-    </script>
+	</script>
+</div>
+
 		
 </head>
-<body style = "background-color: rgb(25, 25, 27);">
+<body style = "background-color: rgb(0, 0, 0);">
 	<!-- create navigation bar ( header) -->
     <div th:fragment = "navbar">
-	<nav class="navbar navbar-expand-lg" style="background-color: rgb(255,174,66);">
+		<script>
+		  $(document).ready(function(){
+			 $('.dropdown-toggle').dropdown()
+		 });
+		</script>
+	<nav class="navbar navbar-expand-lg py-3 bg-success" >
 		<a class="navbar-brand text-dark" th:href="@{/}">QuizCraft</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		  <span class="navbar-toggler-icon"></span>
@@ -39,6 +49,8 @@
 			  <a class="nav-link dropdown-toggle text-dark" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				Quizzes
 			  </a>
+
+
 			  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 				<a class="dropdown-item" th:href="@{/quizzes}">Play Quiz</a>
 				<a class="dropdown-item" th:href="@{/quizzes/new}">Create Quiz</a>
@@ -61,7 +73,10 @@
 	<br>
 	<br>
 	<div class="container font-italic text-light">
-		<h1 class="font-weight-bold font-italic text-light">Welcome to QuizCraft</h1>
+		<h1 class="font-weight-bold font-italic text-light">Welcome to QuizCraft!</h1>
+		<br>
+		<br>
+	
 		<h2>Test your knowledge and have some fun with our Quiz Application!</h2>
 		<h2>Create an Account to Get Started</h2>
 		<br>
