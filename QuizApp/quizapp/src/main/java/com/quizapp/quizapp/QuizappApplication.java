@@ -15,16 +15,16 @@ import com.quizapp.quizapp.services.QuizService;
 
 public class QuizappApplication implements CommandLineRunner{
 	@Autowired
-    private QuizRepository quizRepository;
+  private QuizRepository quizRepository;
 
-    @Autowired
-    private QuizService quizService;
+  @Autowired
+  private QuizService quizService;
 
-    @Autowired 
-    private UserRepository userRepository;
+  @Autowired 
+  private UserRepository userRepository;
 
-    public static void main(String[] args) {
-		SpringApplication.run(QuizappApplication.class, args);
+  public static void main(String[] args) {
+	  SpringApplication.run(QuizappApplication.class, args);
 	}
 	public void run(String ... args){
 		// Quiz b = new Quiz("test", "abc");
