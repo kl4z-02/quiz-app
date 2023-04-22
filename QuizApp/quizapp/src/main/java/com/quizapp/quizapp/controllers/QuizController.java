@@ -1,6 +1,5 @@
 package com.quizapp.quizapp.controllers;
 
-//import java.util.List;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -144,6 +143,7 @@ public class QuizController {
         scoreUser = qa_map.validateReturnScoreWithUserName(quizService.getQuizById(id), ((User) (request.getSession().getAttribute("currentUser"))).getUsername(),id);
         scoreRepository.save(scoreUser);
         model.addAttribute("leaderboard", scoreUserService.getAllScores(id));
+        model.addAttribute("username", ((User) (request.getSession().getAttribute("currentUser"))).getUsername());
         return "play_quiz_table_results";
     }
 

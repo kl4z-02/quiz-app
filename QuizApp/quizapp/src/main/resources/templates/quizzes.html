@@ -9,6 +9,7 @@
 <body style = "background-color: rgb(0, 0, 0);">
 	<div th:insert="~{index.html :: navbar}"></div>
 	<tr th:each = "quiz: ${quizzes}">
+		Quiz ID: <p th:text = "${quiz.getId()}"></p>
 		Creator ID: <p th:text = "${quiz.getCreatorId()}"></p>
 		<p th:text = "${quiz.getDescription()}"></p>
 		<td>
