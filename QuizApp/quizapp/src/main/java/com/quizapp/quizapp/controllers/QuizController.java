@@ -21,6 +21,7 @@ import com.quizapp.quizapp.models.*;
 import com.quizapp.quizapp.services.GameService;
 import com.quizapp.quizapp.services.QuizService;
 import com.quizapp.quizapp.services.ScoreUserService;
+import com.quizapp.quizapp.storage.QuizGameStorage;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -68,7 +69,6 @@ public class QuizController {
         Quiz quiz = new Quiz();
         model.addAttribute("username", ((User) (request.getSession().getAttribute("currentUser"))).getUsername());
         model.addAttribute("quiz", quiz);
-
         return "create_quiz";
     }
     @PostMapping("/addQuestion")
@@ -151,8 +151,18 @@ public class QuizController {
     public String openRoom(Model model, HttpServletRequest request){
         model.addAttribute("username", ((User) (request.getSession().getAttribute("currentUser"))).getUsername());
         model.addAttribute("user_id", ((User) (request.getSession().getAttribute("currentUser"))).getUID());
-       
+        model.addAttribute("rooms", QuizGameStorage.getInstance().getRooms());
+        log.info("SIZE: {}", QuizGameStorage.getInstance().getRooms());
         return "room_landing";
+    }
+    @GetMapping("/room/landing/{id}")
+    public String openRoomDef(Model model, HttpServletRequest request, @PathVariable long id){
+        model.addAttribute("qid", id);
+        model.addAttribute("username", ((User) (request.getSession().getAttribute("currentUser"))).getUsername());
+        model.addAttribute("user_id", ((User) (request.getSession().getAttribute("currentUser"))).getUID());
+        model.addAttribute("rooms", QuizGameStorage.getInstance().getRooms());
+        log.info("SIZE: {}", QuizGameStorage.getInstance().getRooms());
+        return "room_landing_id";
     }
     @GetMapping("/room/play/{game_id}")
     public String playRoom(@PathVariable("game_id") String game_id, Model model, HttpServletRequest request) throws InvalidParamException{

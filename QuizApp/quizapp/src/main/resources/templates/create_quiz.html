@@ -8,9 +8,12 @@
 </head>
 <body class="text-white" style = "background-color: rgb(0, 0, 0);">
 	<div th:insert="~{index.html :: navbar}"></div>
+
 	<form th:action="@{/quizzes}" th:object = "${quiz}" method="POST">
         <div class ="form-group">
-            <label> Description </label>
+            <label class="h2"> Description: </label>
+			<br>
+			<br>
             <input
             type = "text"
             name = "Description"
@@ -19,9 +22,13 @@
             placeholder="Enter description" 
             />
         </div>
+		<br>
+		<hr class="bg-light"/>
+		<br>
         <div class = "form-group" id="questions">
-            <label> Add Questions</label>
-            
+            <label class="h2"> Add Questions:</label>
+            <br>
+			<br>
 			<div class="card text-dark">
 				<div class="card-header dynamic-update-rows bg-success">
 					Questions
@@ -33,12 +40,12 @@
 					</button>
 
 				</div>
-				<div class="card-body">
+				<div class="card-body bg-secondary">
 					<table class="table dynamic-update-rows" style="width: 100%">
 						<tbody id="dynamicTableContents">
 							<tr th:fragment="questions"
 								th:each="question,rowStat : ${quiz.questions}">
-								<td th:text="${rowStat.count}">1</td>
+								<td class="text-light" th:text="${rowStat.count}">1</td>
 								<td><input type="hidden"
 									th:field="${quiz.questions[__${rowStat.index}__].id}">
 								</td>

@@ -3,6 +3,8 @@ package com.quizapp.quizapp.models;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.quizapp.quizapp.services.QuizService;
+
 import lombok.Data;
 
 @Data
@@ -15,4 +17,9 @@ public class QuizGame {
     public void addPlayer(long u){
         players.add(u);
     }
+
+    public int getPlayerCount(){
+        return players.size();
+    }
+
 }

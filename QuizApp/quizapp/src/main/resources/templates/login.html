@@ -6,15 +6,17 @@
 <div th:insert="~{index.html :: imports}"></div>
 	
 </head>
-<body class="text-white" style = "background-color: rgb(0, 0, 0);">
+<body class="text-white"  style="background-image: url('https://images.pexels.com/photos/1341279/pexels-photo-1341279.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');">
 	<!-- create navigation bar ( header) -->
 	<div th:insert="~{index.html :: navbar}"></div>
 	<br>
 	<br>
-	<div class = "container">
-		<div class = "row">
-			<div class ="col-lg-6 col-md-6 col-sm-6 container justify-content-center card bg-secondary">
-				<h1 class = "text-center"> Login </h1>
+	<div class = "container d-flex align-items-center justify-content-center" >
+		<div class = "row container d-flex align-items-center justify-content-center" >
+			<div class ="col-lg-6 col-md-6 col-sm-6 container justify-content-center card" style="background: transparent;">
+				<hr class="bg-success">
+				<h1 class = "text-center text-white"> Login </h1>
+				<hr class="bg-success">
 				<h1 th:text="${current_username}"> </h1>
 				<div class = "card-body">
 					<form th:action="@{/login}" th:object = "${user}" method="POST">
@@ -38,7 +40,7 @@
 							placeholder="Enter your username" 
 							/>
 						</div>
-						
+
 						<div class ="form-group">
 							<label> Password </label>
 							<input
@@ -49,7 +51,7 @@
 							placeholder="Enter your password" 
 							/>
 						</div>
-						
+
 						<div class = "box-footer">
 							<button type="submit" class = "btn btn-primary">
 								Submit
@@ -59,8 +61,10 @@
 					<span>New user? <a href="/" th:href="@{/users/new}">Register
 						here</a></span>
 				</div>
+				<hr class="bg-success">
 			</div>
 		</div>
 	</div>
+	
 </body>
 </html>

@@ -56,6 +56,12 @@ public class UserController {
         return "create_user";
     }
 
+    @GetMapping("/logout")
+    public String createLogout(Model model, HttpServletRequest request){
+        request.getSession().setAttribute("currentUser", null);
+		return "redirect:/";
+    }
+
     @PostMapping("/users")
 	public String saveUser(@ModelAttribute("user") User user, HttpServletRequest request) {
 		userService.saveUser(user);

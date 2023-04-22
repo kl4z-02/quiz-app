@@ -28,16 +28,22 @@
 </head>
 <body class="text-white" style = "background-color: rgb(0, 0, 0);">
     <div th:insert="~{index.html :: navbar}"></div>
-    <div class="table_t"><b>Leaderboard</b></div>
+    <div class="table_t"><h2 class="text-xl-center">Leaderboard</h2></div>
     <div class="my-51" >
-        <table id="customers" class="table table-bordered">
-            <tr>
-                <th>UserName</th>
-                <th>Score</th>
-            </tr>
-            <tr th:each = "player: ${leaderboard}">
+        <table id="customers" class="table table-bordered table-striped">
+            <thead class = "table-dark">
+                <tr>
+                    <th> Rank </th>
+                    <th> Username</th>
+                    <th> Score </th>
+
+                </tr>
+            </thead>
+            <tr th:each = "player, rowStat: ${leaderboard}">
+                <td  th:text = "${rowStat.index+1}"></td>
                 <td  th:text = "${player.getUserName()}"></td>
                 <td  th:text = "${player.getScore()}"></td>
+
             </tr>
         </table>
     </div>

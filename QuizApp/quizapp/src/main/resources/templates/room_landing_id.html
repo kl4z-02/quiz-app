@@ -133,13 +133,14 @@
         <h1>Create a room or join by code</h1>
     </header>
     <br>
-    <input id="q_id" placeholder="Type the quiz id here">
+    <input id="q_id" th:value="${qid}">
     <button onclick="create_game()">Create a new room</button>
     <button onclick="connectToRandom()">Connect to random room</button>
     <input id="game_id" placeholder="Paste room id">
     <button onclick="connectToSpecificGame()">Connect by game id</button>
     <br>
     <br>
+
     <hr class="bg-success">
     <br>
     <br>

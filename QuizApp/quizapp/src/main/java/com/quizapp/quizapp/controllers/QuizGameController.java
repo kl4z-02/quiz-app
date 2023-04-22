@@ -1,5 +1,6 @@
 package com.quizapp.quizapp.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,7 @@ import com.quizapp.quizapp.exceptions.NotFoundException;
 import com.quizapp.quizapp.models.QuizGame;
 import com.quizapp.quizapp.models.User;
 import com.quizapp.quizapp.services.GameService;
+import com.quizapp.quizapp.services.QuizService;
 import com.quizapp.quizapp.storage.QuizGameStorage;
 
 import lombok.AllArgsConstructor;
@@ -27,18 +29,25 @@ import lombok.extern.slf4j.Slf4j;
 public class QuizGameController {
     private final GameService gameService;
     private final SimpMessagingTemplate simpMessagingTemplate;
-
+    @Autowired
+    QuizService quizService;
     @PostMapping("/start")
     public ResponseEntity<QuizGame> start(@RequestBody InitGameRequest request) {
         log.info("start game request: {}", request);
-        return ResponseEntity.ok(gameService.createGame(request.getPlayer(), request.getQuizId()));
+        if(quizService.getQuizById(request.getQuizId())!=null)
+            return ResponseEntity.ok(gameService.createGame(request.getPlayer(), request.getQuizId()));
+        else
+            return null;
     }
 
     @PostMapping("/connect")
     public ResponseEntity<QuizGame> connect(@RequestBody ConnectRequest request) throws InvalidParamException, InvalidGameException {
         log.info("connect request: {}", request);
         log.info("quiz storage has : {}", QuizGameStorage.getInstance().getGames());
-        return ResponseEntity.ok(gameService.connectToGame(request.getPlayerId(), request.getGameId()));
+        if(QuizGameStorage.existsId(request.getGameId()))
+            return ResponseEntity.ok(gameService.connectToGame(request.getPlayerId(), request.getGameId()));
+        else
+            return null;
     }
 
     @PostMapping("/connect/random")

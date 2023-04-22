@@ -1,5 +1,7 @@
 package com.quizapp.quizapp.storage;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,7 +26,13 @@ public class QuizGameStorage {
         return games;
     }
 
+    public List<QuizGame> getRooms(){
+        return new ArrayList<QuizGame>(games.values());
+    }
     public void addGame(QuizGame game) {
         games.put(game.getGameId(), game);
+    }
+    public static boolean existsId(String key){
+        return games.containsKey(key);
     }
 }
