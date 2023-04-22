@@ -47,6 +47,9 @@ public class QuizController {
     private ScoreRepository scoreRepository;
     @GetMapping("/quizzes")
     public String quizList(Model model, HttpServletRequest request){
+        User user = ((User) (request.getSession().getAttribute("currentUser")));
+        if(user == null)
+            return "redirect:/";
         model.addAttribute("username", ((User) (request.getSession().getAttribute("currentUser"))).getUsername());
         model.addAttribute("quizzes", quizService.getAllQuizzes());
         return "quizzes";
@@ -65,6 +68,9 @@ public class QuizController {
 
     @GetMapping("/quizzes/new")
     public String createNewQuiz(Model model, HttpServletRequest request){
+        User user = ((User) (request.getSession().getAttribute("currentUser")));
+        if(user == null)
+            return "redirect:/";
         Quiz quiz = new Quiz();
         model.addAttribute("username", ((User) (request.getSession().getAttribute("currentUser"))).getUsername());
         model.addAttribute("quiz", quiz);
@@ -96,6 +102,9 @@ public class QuizController {
 
     @GetMapping("/update-quiz")
     public String updateQuiz(Model model, HttpServletRequest request){
+        User user = ((User) (request.getSession().getAttribute("currentUser")));
+        if(user == null)
+            return "redirect:/";
         model.addAttribute("username", ((User) (request.getSession().getAttribute("currentUser"))).getUsername());
         String username1 = ((User) (request.getSession().getAttribute("currentUser"))).getUsername();
         List<Quiz> retArr = quizService.getAllQuiz(username1);
@@ -149,6 +158,9 @@ public class QuizController {
 
     @GetMapping("/room/landing")
     public String openRoom(Model model, HttpServletRequest request){
+        User user = ((User) (request.getSession().getAttribute("currentUser")));
+        if(user == null)
+            return "redirect:/";
         model.addAttribute("username", ((User) (request.getSession().getAttribute("currentUser"))).getUsername());
         model.addAttribute("user_id", ((User) (request.getSession().getAttribute("currentUser"))).getUID());
         model.addAttribute("rooms", QuizGameStorage.getInstance().getRooms());
