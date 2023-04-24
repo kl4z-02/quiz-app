@@ -7,9 +7,9 @@
 </head>
 <body class="text-white" style = "background-color: rgb(0, 0, 0);">
     <div th:insert="~{index.html :: navbar}"></div>
-	<div>
+	<div class="h-100 d-flex align-items-center justify-content-center"></div>
         <form th:action="@{/quizzes/play/{id} (id=${quiz.id})}" th:object = "${qv}" method="POST">
-            <table class="table-bordered">
+            <table class="table-bordered h-auto w-100">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
